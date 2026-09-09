@@ -17,13 +17,13 @@ This is the foundation of an independent public methodology and reference implem
 - [Specification v0.1](docs/specification-v0.1.md): definition, principles, capabilities, domains, boundaries, and intended reference scope.
 - [Architecture v0.1](docs/architecture-v0.1.md): locked decisions, authority boundaries, lifecycle, and future repository responsibilities.
 
-The repository currently contains documentation and basic text-editor configuration only. There is no application to run, dependency installation, build, or automated Genome validation yet.
+The repository now includes the first authored [Forma Design Genome](genome/README.md): guidance, draft component contract structure, rule metadata, semantic relationships, and governance. Forma is the fictional reference organization. There is no executable application, dependency installation, build, or automated UI rule enforcement yet.
 
 ## Implementation direction
 
-The future reference implementation will use original examples for a fictional organization. Its current technical direction includes Markdown/MDX, established design-token conventions, TypeScript contracts and validation, and React with TypeScript. These are reference implementation choices, not requirements of the methodology.
+The reference implementation uses original examples for Forma, a fictional collaborative workflow-management SaaS product. Its current technical direction includes Markdown/MDX, established design-token conventions, TypeScript contracts and validation, and React with TypeScript. These are reference implementation choices, not requirements of the methodology.
 
-The public site, fictional brand, components, consumer adapter, and deployment are future work. The architecture document records their boundaries without scaffolding them prematurely.
+The final Forma visual system, executable components, public site, consumer adapter, and deployment remain future work. The methodology documents preserve the original foundation scope; the Genome entry point describes the current organizational sources.
 
 ## Independence
 
