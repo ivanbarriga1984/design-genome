@@ -6,13 +6,13 @@ This guide owns rule wording and review rationale. [rules.ts](rules.ts) owns eac
 
 Executable UI uses approved semantic color tokens rather than arbitrary color values.
 
-Requires an approved token source and an inspectable implementation. No palette or checker exists yet.
+The authoritative inventory is the `color` group in [foundation tokens](../foundations/tokens.json), discovered through `forma.foundations.color`. Consumer roles and intended pairings are explained in [color guidance](../foundations/README.md#color). The inventory is authored for review; an inspectable implementation and executable checker are still required for enforcement.
 
 ## Spacing tokens only
 
 Supported UI spacing resolves to the approved spacing scale.
 
-Requires an approved scale and a defined set of supported spacing surfaces. No scale or checker exists yet.
+The authoritative scale is the `spacing` group in [foundation tokens](../foundations/tokens.json), discovered through `forma.foundations.spacing`. See [spacing guidance](../foundations/README.md#spacing) for intended use. Component spacing mappings, supported implementation surfaces, and an executable checker remain later work.
 
 ## Reuse governed components
 

@@ -16,7 +16,7 @@ This is the first authored organizational Genome. Its version and review status 
 
 ## Authority and discovery
 
-[registry.ts](registry.ts) maps stable IDs to authoritative source locations, role ownership, status, and semantic relationships. Paths are relative to `genome/`; Markdown fragments identify sections and TypeScript fragments identify exported symbols. The registry is a discovery index, not a replacement for the sources it identifies.
+[registry.ts](registry.ts) maps stable IDs to authoritative source locations, role ownership, status, and semantic relationships. Paths are relative to `genome/`; Markdown fragments identify sections and TypeScript fragments identify exported symbols, and JSON Pointer fragments identify token groups. The registry is a discovery index, not a replacement for the sources it identifies.
 
 IDs use `forma.<domain>.<slug>`, with plural operational-domain names and lowercase kebab-case slugs. They exclude versions and paths so moves and revisions need not change identity. Preserve IDs when editing the same entity. The governance version describes the Genome, not separate versions embedded in each ID.
 
@@ -24,4 +24,4 @@ Markdown owns why/when guidance and contextual judgment. Rule wording is authore
 
 Relationships are directional: `informs` goes from guidance to what it informs, `uses` from a consumer to knowledge/component it uses, `governed-by` from an entity to its governing rule, and `related-to` marks a conditional association. Only meaningful design connections are recorded; imports and other technical dependencies are not mirrored.
 
-Foundations have no token values yet. Components have no approved variants, state enumerations, or runtime APIs yet. `null` contract fields mean unresolved, not an empty supported set or permission to invent values. No generated artifacts, executable UI, adapters, or automated UI rule enforcement are included.
+[Foundation tokens](foundations/tokens.json) now own the first real color, typography, spacing, and radius values. Guidance explains semantic consumption and the internal reference boundary. Components have no approved variants, state enumerations, or runtime APIs yet. `null` contract fields mean unresolved, not an empty supported set or permission to invent values. No generated artifacts, executable UI, adapters, or automated UI rule enforcement are included.

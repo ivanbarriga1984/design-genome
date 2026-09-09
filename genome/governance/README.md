@@ -6,9 +6,9 @@ All entities are draft in this first reviewable pass. `active` identifies approv
 
 ## Authority
 
-Source locations distinguish guidance, contracts, and metadata. The registry owns discovery and semantic relationships; source records own their actual content. TypeScript fragments name exported symbols; find the matching ID within the export for grouped records. Executable behavior will have its own authority when implementations exist.
+Source locations distinguish guidance, contracts, and metadata. The registry owns discovery and semantic relationships; source records own their actual content. TypeScript fragments name exported symbols; find the matching ID within the export for grouped records. Foundation contract locations use JSON Pointer fragments to identify groups in the authored token file. Executable behavior will have its own authority when implementations exist.
 
-Final token values and component APIs remain unresolved. Human review of intent, hierarchy, labels, and progressive complexity remains human review. Machine-readable metadata must not be treated as evidence that those judgments have been automated.
+The first real foundation values now live in the token source identified by the registry; component APIs remain unresolved. Human review of intent, hierarchy, labels, and progressive complexity remains human review. Machine-readable metadata must not be treated as evidence that those judgments have been automated.
 
 ## Exceptions
 
