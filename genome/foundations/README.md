@@ -10,7 +10,7 @@ Forma and Design Genome have separate visual identities. The future public site'
 
 The token file follows [DTCG Format 2025.10](https://www.designtokens.org/tr/2025.10/format/) concepts: `$type`, `$value`, typed sRGB color objects, dimension objects, typography composites, and curly-brace aliases. It is an authored source, not generated output or a proprietary Genome format. Source locations use JSON Pointer fragments to identify the four groups within it.
 
-Consumers use `color.*`, `typography.*`, `spacing.*`, and `radius.*`. `reference.*` is internal and contains only the shared font-family value. There is no raw color palette. Literal colors are authored directly into semantic roles; aliases reuse a deliberately shared decision. Edit the referenced source to change all roles sharing that decision. The normalized sRGB components are authoritative; there is no separately maintained hex palette.
+Consumers use `color.*`, `typography.*`, `spacing.*`, `radius.*`, and the supporting `border.*` and `focus.*` geometry tokens. `reference.*` is internal and contains only the shared font-family value. There is no raw color palette. Literal colors are authored directly into semantic roles; aliases reuse a deliberately shared decision. Edit the referenced source to change all roles sharing that decision. The normalized sRGB components are authoritative; there is no separately maintained hex palette.
 
 ## Color
 
@@ -29,13 +29,13 @@ Use `text.primary` and `text.muted` on canvas, subtle, or neutral-hover backgrou
 
 The locked subtle border is for grouping and separators. Use `border.control` when a boundary is needed to identify an input; `border.control-hover` strengthens that boundary on hover. A faint separator is not sufficient merely because it is tokenized.
 
-Use the focus-ring color against canvas/subtle surfaces with visible separation from filled actions. A same-colored ring touching a primary fill may disappear. Indicator geometry and behavior must be resolved and tested with actual components. Disabled roles identify an unavailable state; their colors do not implement disabling behavior. Feedback must also be communicated through content or other appropriate cues rather than color alone.
+Use the focus-ring color against canvas/subtle surfaces with visible separation from filled actions. A same-colored ring touching a primary fill may disappear. Use the governed [focus geometry](#border-and-focus-geometry); actual visibility and behavior still require component testing. Disabled roles identify an unavailable state; their colors do not implement disabling behavior. Feedback must also be communicated through content or other appropriate cues rather than color alone.
 
 The [semantic-color rule](../rules/README.md#semantic-colors-only) now has an authoritative inventory. It still has no executable enforcement.
 
 ## Typography
 
-Use the semantic typography composites as complete text styles. The shared reference specifies Inter with a generic sans-serif fallback. Font assets and loading are later implementation work; no font has been downloaded or bundled here.
+Use the semantic typography composites as complete text styles. The shared reference specifies Inter with a generic sans-serif fallback. The reference app imports the governed normal weights from `@fontsource/inter`. npm locks the package version and Vite bundles its font assets locally; there is no remote Google Fonts request.
 
 `heading-2`, `heading-3`, `body`, `body-small`, `label`, and `caption` form the ordinary application hierarchy. Reserve `heading-1` for rare high-level contexts. Use body small for supporting or denser workflow content without replacing the main reading hierarchy; captions are secondary annotations, not a way to shrink primary tasks. Labels distinguish control names with modest weight rather than decorative emphasis.
 
@@ -54,3 +54,11 @@ The [spacing rule](../rules/README.md#spacing-tokens-only) now resolves to a con
 Use `radius.small`, `radius.default`, and `radius.large` purposefully according to the role and scale of a surface or control. The foundation provides restrained choices; component mappings remain later work.
 
 Pill/full rounding is reserved for semantics such as status indicators, tags, or chips. None are in the initial component scope, so no full-rounding token is added now. Do not approximate pill shapes by misusing the largest available radius.
+
+## Border and focus geometry
+
+The token source owns `border.width.default`, `focus.ring.width`, and `focus.ring.offset`. These are supporting implementation dimensions alongside the existing foundations, not a new methodology domain. Component contract mappings identify where they apply; no values are independently maintained in this guide or component styles.
+
+Use the default governed width for visible borders with semantic color roles. Controls use `color.border.control` and `color.border.control-hover` for their identifying boundaries, with the existing governed error/disabled treatments where applicable. Card separators retain their subtle border role. There are no decorative border-width variants; an intentionally unpainted ghost Button remains borderless at rest.
+
+Use `color.focus.ring` with the governed ring width and offset. Prefer `:focus-visible` for keyboard-visible focus treatment, preserving native focus behavior and visibility alongside errors. Ring geometry alone does not establish accessibility compliance; test contrast, clipping, keyboard behavior, and surrounding surfaces in the actual components.

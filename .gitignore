@@ -1,2 +1,9 @@
 # Local macOS metadata
 .DS_Store
+
+# Local dependencies, build output, and derived tokens
+node_modules/
+dist/
+generated/*.css
+generated/*.css.tmp
+*.tsbuildinfo

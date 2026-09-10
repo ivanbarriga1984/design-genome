@@ -1,0 +1,20 @@
+/* Local boot preview only. Foundation values come from generated variables. */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--forma-color-background-canvas);
+  color: var(--forma-color-text-primary);
+  font: var(--forma-typography-body);
+  letter-spacing: var(--forma-typography-body-letter-spacing);
+}
+main {
+  padding: var(--forma-spacing-6);
+  display: grid;
+  gap: var(--forma-spacing-4);
+}
+h1 {
+  margin: 0;
+  font: var(--forma-typography-heading-2);
+  letter-spacing: var(--forma-typography-heading-2-letter-spacing);
+}
+p { margin: 0; }
