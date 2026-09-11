@@ -5,6 +5,14 @@ import { generateTokens } from "./scripts/generate-tokens.ts";
 import { tokenFile } from "./scripts/tokens.ts";
 
 export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        site: fileURLToPath(new URL("./index.html", import.meta.url)),
+        forma: fileURLToPath(new URL("./reference/forma/index.html", import.meta.url)),
+      },
+    },
+  },
   plugins: [
     {
       name: "forma-genome-tokens",

@@ -1,0 +1,158 @@
+/* Public website implementation foundation. Separate from the Forma Genome. */
+:root {
+  --dg-white: #fff;
+  --dg-ink: #20202c;
+  --dg-muted: #62616f;
+  --dg-purple: #6438df;
+  --dg-purple-hover: #5128c5;
+  --dg-purple-soft: #f1ecfc;
+  --dg-blue: #3167d5;
+  --dg-neutral: #f7f7f9;
+  --dg-line: #e3e1e9;
+  --dg-dark: #211b35;
+  --dg-on-dark: #cbc3e0;
+  --dg-font: "Manrope", sans-serif;
+  --dg-space-1: 8px;
+  --dg-space-2: 16px;
+  --dg-space-3: 24px;
+  --dg-space-4: 32px;
+  --dg-space-6: 48px;
+  --dg-space-8: 64px;
+  --dg-section: clamp(80px, 9vw, 144px);
+  --dg-width: 1248px;
+  --dg-gutter: clamp(24px, 5vw, 80px);
+  --dg-radius: 5px;
+  --dg-border: 1px;
+  --dg-focus: 2px;
+  --dg-duration: 180ms;
+  --dg-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-padding-top: 96px;
+}
+body {
+  margin: 0;
+  background: var(--dg-white);
+  color: var(--dg-ink);
+  font: 400 16px/1.65 var(--dg-font);
+}
+.dg-site h1,
+.dg-site h2,
+.dg-site h3,
+.dg-site p {
+  margin: 0;
+}
+.dg-site h1,
+.dg-site h2,
+.dg-site h3 {
+  font-weight: 500;
+}
+.dg-site a {
+  color: inherit;
+  text-decoration: none;
+}
+.dg-site button {
+  font: inherit;
+}
+.dg-site a,
+.dg-site button {
+  -webkit-tap-highlight-color: transparent;
+}
+.dg-site :is(a, button, input, summary):focus-visible:not(:where(.dg-forma-preview *)) {
+  outline: var(--dg-focus) solid var(--dg-purple);
+  outline-offset: 5px;
+}
+.dg-site main:focus {
+  outline: none;
+}
+.dg-wrap {
+  width: min(var(--dg-width), calc(100% - var(--dg-gutter) * 2));
+  margin-inline: auto;
+}
+.dg-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dg-purple);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.dg-point {
+  display: inline-block;
+  flex: none;
+  width: 6px;
+  height: 6px;
+  background: var(--dg-purple);
+  border-radius: 50%;
+}
+.dg-icon {
+  flex: none;
+  vertical-align: middle;
+}
+.dg-action,
+.dg-text-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  min-height: 48px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.dg-site .dg-action {
+  padding: 14px 20px;
+  border-radius: var(--dg-radius);
+  background: var(--dg-purple);
+  color: var(--dg-white);
+  transition: background var(--dg-duration) var(--dg-ease);
+}
+.dg-site .dg-action:hover {
+  background: var(--dg-purple-hover);
+}
+.dg-text-link .dg-icon,
+.dg-action .dg-icon {
+  transition: transform var(--dg-duration) var(--dg-ease);
+}
+.dg-text-link:hover .dg-icon,
+.dg-action:hover .dg-icon {
+  transform: translateX(3px);
+}
+.dg-site .dg-text-link:hover {
+  color: var(--dg-purple);
+}
+.dg-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px 28px;
+}
+.dg-lead {
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.65;
+  color: var(--dg-muted);
+  max-width: 640px;
+}
+.dg-skip {
+  position: fixed;
+  top: -80px;
+  left: 24px;
+  z-index: 30;
+  padding: 12px 20px;
+  background: var(--dg-white);
+}
+.dg-skip:focus {
+  top: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dg-site *,
+  .dg-site *::before,
+  .dg-site *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
