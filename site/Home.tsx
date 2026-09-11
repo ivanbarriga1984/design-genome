@@ -50,10 +50,22 @@ export function EncodedVisual() {
       <svg
         className="dg-wires"
         viewBox="0 0 520 470"
+        preserveAspectRatio="none"
         fill="none"
         aria-hidden="true"
       >
-        <path d="M133 105H218V235H275 M133 235H275 M133 365H218V235 M350 235H402V175H457 M402 235V305H457" />
+        <path
+          className="dg-flow-in"
+          pathLength="1"
+          vectorEffect="non-scaling-stroke"
+          d="M133 105H218V235H275 M133 235H275 M133 365H218V235"
+        />
+        <path
+          className="dg-flow-out"
+          pathLength="1"
+          vectorEffect="non-scaling-stroke"
+          d="M350 235H402V175H457 M402 235V305H457"
+        />
         <circle cx="218" cy="235" r="5" />
         <circle cx="402" cy="235" r="5" />
       </svg>
@@ -155,9 +167,11 @@ export function Home() {
               Give it more ways to work.
             </p>
             <p>
-              Human-readable documentation, connected to structured
-              intelligence, executable implementation, and the mechanisms that
-              bring it to consumers.
+              <strong>Human-readable documentation,</strong>{" "}
+              <span>
+                connected to structured intelligence, executable implementation,
+                and the mechanisms that bring it to consumers.
+              </span>
             </p>
           </div>
         </div>
@@ -199,7 +213,7 @@ export function Home() {
         <div className="dg-capabilities-table">
           <div className="dg-governance">
             <span className="dg-point" />
-            Governance across every capability<span>↔</span>
+            Governance across every capability<span aria-hidden="true">↔</span>
           </div>
           {[
             [

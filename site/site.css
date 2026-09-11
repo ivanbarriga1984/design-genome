@@ -1389,3 +1389,436 @@
     margin: 0;
   }
 }
+
+/* Approved-language refinement: relationship cues, never new surfaces or stages. */
+.dg-links a {
+  transition: color var(--dg-duration) var(--dg-ease);
+  text-underline-offset: 8px;
+  text-decoration-thickness: var(--dg-border);
+}
+.dg-links a:is(:hover, :focus-visible) {
+  text-decoration: underline;
+}
+.dg-text-link:focus-visible .dg-icon,
+.dg-action:focus-visible .dg-icon {
+  transform: translateX(3px);
+}
+.dg-site .dg-action:active {
+  background: var(--dg-purple-hover);
+}
+.dg-hero .dg-actions {
+  column-gap: var(--dg-space-3);
+}
+.dg-gene small,
+.dg-output span {
+  font-size: 10px;
+}
+.dg-output {
+  font-size: 12px;
+}
+.dg-encoded-label {
+  letter-spacing: 0.08em;
+}
+.dg-wires path {
+  stroke: var(--dg-purple);
+  stroke-opacity: 0.5;
+}
+/* One arrival sequence: authored knowledge first, then consumer connections. */
+@media (prefers-reduced-motion: no-preference) {
+  .dg-flow-in,
+  .dg-flow-out {
+    animation: dg-connect calc(var(--dg-duration) * 3) var(--dg-ease) both;
+  }
+  .dg-flow-out {
+    animation-delay: calc(var(--dg-duration) * 3);
+  }
+}
+@keyframes dg-connect {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+.dg-shift-title > span {
+  position: relative;
+}
+.dg-shift-title > span::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: var(--dg-border);
+  background: var(--dg-purple);
+  margin-top: var(--dg-space-2);
+}
+.dg-shift-bottom > p:last-child {
+  padding-left: var(--dg-space-3);
+  border-left: var(--dg-border) solid var(--dg-purple);
+}
+.dg-shift-bottom strong {
+  display: block;
+  color: var(--dg-ink);
+  font-weight: 600;
+  margin-bottom: var(--dg-space-1);
+}
+.dg-model-phase::before,
+.dg-model-node,
+.dg-model-title,
+.dg-model-question {
+  transition:
+    color var(--dg-duration) var(--dg-ease),
+    background-color var(--dg-duration) var(--dg-ease),
+    border-color var(--dg-duration) var(--dg-ease);
+}
+.dg-model-phase:is([aria-pressed="true"], :hover, :focus-visible)::before {
+  background: var(--dg-on-dark);
+}
+.dg-model-phase[aria-pressed="true"] .dg-model-title {
+  color: var(--dg-white);
+}
+.dg-model-phase[aria-pressed="true"] .dg-model-question {
+  color: var(--dg-white);
+}
+.dg-model-phase .dg-model-title {
+  line-height: 1.2;
+}
+.dg-model-phase .dg-model-question {
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 245px;
+}
+.dg-model-node {
+  flex-shrink: 0;
+}
+.dg-model-detail {
+  position: relative;
+  margin-top: var(--dg-space-1);
+}
+.dg-model-detail::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 32px;
+  height: var(--dg-border);
+  background: var(--dg-on-dark);
+  transition: left var(--dg-duration) var(--dg-ease);
+}
+.dg-model[data-selected="1"] .dg-model-detail::before {
+  left: 33.333%;
+}
+.dg-model[data-selected="2"] .dg-model-detail::before {
+  left: 66.666%;
+}
+.dg-model-detail > div > p {
+  line-height: 1.8;
+}
+.dg-step {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+/* A single governance spine touches every capability without ranking them. */
+.dg-capabilities-table {
+  position: relative;
+  padding-left: var(--dg-space-3);
+}
+.dg-capabilities-table::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 24px;
+  bottom: 0;
+  width: 12px;
+  border: var(--dg-border) solid var(--dg-purple);
+  border-right: 0;
+  opacity: 0.45;
+}
+.dg-capability {
+  position: relative;
+}
+.dg-capability::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 36px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dg-purple);
+}
+.dg-capability > span {
+  font-size: 11px;
+}
+.dg-reference-visual {
+  position: relative;
+}
+.dg-source-step {
+  position: relative;
+  padding-left: var(--dg-space-2);
+  border-left: var(--dg-border) solid var(--dg-line);
+}
+.dg-source-step::before {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  left: -3px;
+  top: 33px;
+  background: var(--dg-purple);
+  border-radius: 50%;
+}
+.dg-reference-bridge {
+  position: absolute;
+  z-index: 1;
+  left: calc(100% / 2.1);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: var(--dg-white);
+  color: var(--dg-purple);
+  border: var(--dg-border) solid var(--dg-line);
+  border-radius: 50%;
+}
+.dg-source-step,
+.dg-reference-bridge {
+  transition: border-color var(--dg-duration) var(--dg-ease);
+}
+.dg-reference-visual:has(.dg-reference-result:focus-within) .dg-source-step,
+.dg-source-step:is(:hover, :focus-within),
+.dg-reference-visual:focus-within .dg-reference-bridge {
+  border-color: var(--dg-purple);
+}
+.dg-source-step pre {
+  font-size: 12px;
+}
+.dg-owned {
+  position: relative;
+  border-color: var(--dg-purple);
+}
+.dg-owned::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  background: var(--dg-purple);
+}
+.dg-owned small,
+.dg-consumers span {
+  font-size: 11px;
+}
+.dg-owner-caption {
+  color: var(--dg-purple);
+  font-size: 10px;
+  font-weight: 600;
+}
+.dg-consumers span {
+  border-style: dashed;
+  background: transparent;
+}
+.dg-owner-note {
+  max-width: 300px;
+}
+.dg-existing {
+  position: relative;
+  padding-left: var(--dg-space-3);
+}
+.dg-existing::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 40px;
+  bottom: 32px;
+  width: var(--dg-border);
+  background: var(--dg-line);
+}
+.dg-existing > div {
+  position: relative;
+  justify-content: flex-start;
+  column-gap: var(--dg-space-2);
+}
+.dg-existing > div::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 40px;
+  width: 5px;
+  height: 5px;
+  background: var(--dg-white);
+  border: var(--dg-border) solid var(--dg-purple);
+  border-radius: 50%;
+}
+.dg-existing small {
+  font-size: 13px;
+}
+.dg-existing > p {
+  position: relative;
+  padding-left: var(--dg-space-2);
+  border-left: var(--dg-border) solid var(--dg-purple);
+  color: var(--dg-ink);
+}
+.dg-existing > p::before {
+  content: "";
+  position: absolute;
+  left: -25px;
+  top: 16px;
+  width: 24px;
+  height: var(--dg-border);
+  background: var(--dg-purple);
+}
+.dg-closing .dg-eyebrow::before {
+  content: "";
+  width: 32px;
+  height: var(--dg-border);
+  background: var(--dg-purple);
+}
+.dg-footer > p {
+  color: var(--dg-ink);
+}
+.dg-closing-nodes::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 28px);
+  height: 64px;
+  border-left: var(--dg-border) dotted var(--dg-purple);
+}
+.dg-result-caption > .dg-step > svg {
+  display: none;
+}
+@media (max-width: 1100px) {
+  .dg-model-phase .dg-model-question {
+    font-size: 13px;
+  }
+  .dg-output {
+    left: 76%;
+  }
+}
+@media (max-width: 800px) {
+  .dg-output {
+    left: 79%;
+  }
+  .dg-reference-bridge {
+    display: none;
+  }
+  .dg-source-step::before {
+    top: 5px;
+  }
+  .dg-reference-result {
+    border-top: var(--dg-border) solid var(--dg-line);
+  }
+  .dg-result-caption > .dg-step {
+    display: flex;
+    gap: var(--dg-space-1);
+    align-items: center;
+  }
+  .dg-result-caption > .dg-step > svg {
+    display: block;
+    color: var(--dg-purple);
+    width: 16px;
+    transform: rotate(90deg);
+  }
+  .dg-source-step + .dg-source-step {
+    border-left: var(--dg-border) solid var(--dg-line);
+  }
+}
+@media (max-width: 580px) {
+  .dg-gene {
+    width: 108px;
+    padding-inline: 9px;
+    font-size: 12px;
+  }
+  .dg-gene small {
+    font-size: 10px;
+  }
+  .dg-genome-core {
+    left: 43%;
+    width: 80px;
+  }
+  .dg-output {
+    left: 73%;
+    font-size: 11px;
+    padding-inline: 0;
+    white-space: normal;
+    max-width: 27%;
+  }
+  .dg-output span {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+  .dg-encoded-label {
+    font-size: 9px;
+  }
+  .dg-model-phase .dg-model-question {
+    font-size: 14px;
+  }
+  .dg-model-detail::before {
+    display: none;
+  }
+  .dg-model-detail {
+    border-left: var(--dg-border) solid var(--dg-on-dark);
+    padding-left: var(--dg-space-2);
+  }
+  .dg-source-step + .dg-source-step::before {
+    top: 33px;
+  }
+  .dg-capabilities-table {
+    padding-left: var(--dg-space-2);
+  }
+  .dg-capability {
+    gap: var(--dg-space-2);
+  }
+  .dg-capability::before {
+    left: -19px;
+  }
+  .dg-governance {
+    padding-inline: 12px;
+    font-size: 10px;
+  }
+  .dg-consumers {
+    gap: 8px;
+  }
+  .dg-consumers span {
+    font-size: 10px;
+    padding: 8px 6px;
+  }
+  .dg-existing > div {
+    gap: 4px 12px;
+  }
+  .dg-closing-nodes {
+    display: grid;
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    grid-template-columns: repeat(8, 4px);
+    gap: 16px;
+    margin-top: var(--dg-space-6);
+    width: max-content;
+  }
+  .dg-closing-nodes i {
+    width: 4px;
+    height: 4px;
+  }
+  .dg-closing-nodes i:nth-child(n + 17) {
+    display: none;
+  }
+  .dg-closing-nodes::after {
+    display: none;
+  }
+}
+@media (max-width: 580px) {
+  .dg-genome-core {
+    width: 72px;
+  }
+  .dg-model .dg-model-phase:focus-visible {
+    outline-offset: -4px;
+  }
+}

@@ -53,9 +53,15 @@ export default function ReferenceDemo() {
           </a>
         </div>
       </div>
+      <span className="dg-reference-bridge" aria-hidden="true">
+        <Icon />
+      </span>
       <div className="dg-reference-result">
         <div className="dg-result-caption">
-          <span className="dg-step">03 / EXECUTABLE RESULT</span>
+          <span className="dg-step">
+            <Icon />
+            03 / EXECUTABLE RESULT
+          </span>
           <span className="dg-live">
             <i />
             Live component

@@ -26,7 +26,7 @@ const phases = [
 export function Model() {
   const [selected, setSelected] = useState(1);
   return (
-    <div className="dg-model">
+    <div className="dg-model" data-selected={selected}>
       <div className="dg-model-meta">
         <span>THE CORE MODEL</span>
         <span>01 — 03 / CONNECTED BY DESIGN</span>
