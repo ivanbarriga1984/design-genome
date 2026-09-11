@@ -65,3 +65,7 @@ See [compiled Genome architecture, query behavior and limitations](docs/compiled
 ## First Codex consumer
 
 `npm run codex:context` creates an ignored, task-scoped destructive-action context packet from the compiled Genome. It does not call Codex or implement a feature. Run the upstream `genome:generate` / `genome:check` commands first. See the [Codex consumer and qualitative comparison protocol](adapters/codex/README.md) for explicit invocation, authority boundaries, validation and limitations.
+
+## Disposable experiment preparation
+
+The [experiment-export harness](experiments/README.md) exports the pinned consumer milestone into two self-contained implementation fixtures. It freezes runtime dependencies privately and supplies the approved context packet only to the Genome-informed condition. Export/verification commands prepare the experiment; they never run either implementation condition or alter the canonical Forma implementation.

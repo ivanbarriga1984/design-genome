@@ -16,7 +16,8 @@
     "genome:generate": "node scripts/compile-genome.ts",
     "genome:check": "node scripts/compile-genome.ts --check",
     "genome:query": "node scripts/query-genome.ts",
-    "codex:context": "node adapters/codex/context.ts"
+    "codex:context": "node adapters/codex/context.ts",
+    "experiment": "node experiments/export.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

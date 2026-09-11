@@ -13,5 +13,5 @@
     "skipLibCheck": true,
     "types": ["node", "vite/client"]
   },
-  "include": ["src", "genome/**/*.ts", "scripts", "tests", "vite.config.ts", "adapters/**/*.ts"]
+  "include": ["src", "genome/**/*.ts", "scripts", "tests", "vite.config.ts", "adapters/**/*.ts", "experiments/**/*.ts"]
 }
