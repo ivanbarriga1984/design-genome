@@ -49,3 +49,15 @@ npm run tokens
 ```
 
 `build` typechecks and produces ignored `dist/` output. `check` validates source integrity; `test` exercises token derivation and focused DOM component behavior using Node, tsx, and jsdom. No linter is configured. Vite generates token CSS before serving/building and updates it when authored tokens change. See [generated artifact responsibilities](generated/README.md). Do not edit generated CSS or treat it as design authority.
+
+## Compiled Genome
+
+The existing Forma authority can now be compiled into a generated JSON snapshot for deterministic machine consumption. It preserves structured contracts, relationships, governance and source-linked prose; it does not infer design intent or generate interfaces.
+
+```sh
+npm run genome:generate
+npm run genome:check
+npm run genome:query -- forma.patterns.destructive-action
+```
+
+See [compiled Genome architecture, query behavior and limitations](docs/compiled-genome.md). Human-readable design-system guidance remains first-class. Generated JSON is ignored by Git and must never be edited as authority.

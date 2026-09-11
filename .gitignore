@@ -7,3 +7,7 @@ dist/
 generated/*.css
 generated/*.css.tmp
 *.tsbuildinfo
+
+# Compiled Genome is derived, never authored
+generated/forma-genome.json
+generated/forma-genome.json.tmp

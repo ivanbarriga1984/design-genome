@@ -12,7 +12,10 @@
     "typecheck": "tsc --noEmit",
     "tokens": "node scripts/generate-tokens.ts",
     "check": "node scripts/validate-genome.ts",
-    "test": "node --import tsx --test tests/*.test.ts tests/*.test.tsx"
+    "test": "node --import tsx --test tests/*.test.ts tests/*.test.tsx",
+    "genome:generate": "node scripts/compile-genome.ts",
+    "genome:check": "node scripts/compile-genome.ts --check",
+    "genome:query": "node scripts/query-genome.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
