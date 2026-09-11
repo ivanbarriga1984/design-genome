@@ -8,9 +8,9 @@ Forma and Design Genome have separate visual identities. The future public site'
 
 [tokens.json](tokens.json) is the authored authority for deterministic foundation values. This guide owns why and when; the [registry](../registry.ts) identifies authority, status, and ownership under the existing foundation IDs. The values are the first real foundation proposal for review; entity status remains draft. No executable behavior is claimed.
 
-The token file follows [DTCG Format 2025.10](https://www.designtokens.org/tr/2025.10/format/) concepts: `$type`, `$value`, typed sRGB color objects, dimension objects, typography composites, and curly-brace aliases. It is an authored source, not generated output or a proprietary Genome format. Source locations use JSON Pointer fragments to identify the four groups within it.
+The token file follows [DTCG Format 2025.10](https://www.designtokens.org/tr/2025.10/format/) concepts: `$type`, `$value`, typed sRGB color objects, dimension objects, typography composites, and curly-brace aliases. It is an authored source, not generated output or a proprietary Genome format. Source locations use JSON Pointer fragments to identify the foundation groups within it.
 
-Consumers use `color.*`, `typography.*`, `spacing.*`, `radius.*`, and the supporting `border.*` and `focus.*` geometry tokens. `reference.*` is internal and contains only the shared font-family value. There is no raw color palette. Literal colors are authored directly into semantic roles; aliases reuse a deliberately shared decision. Edit the referenced source to change all roles sharing that decision. The normalized sRGB components are authoritative; there is no separately maintained hex palette.
+Consumers use `color.*`, `typography.*`, `spacing.*`, `radius.*`, `shadow.*`, `motion.*`, and the supporting `border.*` and `focus.*` geometry tokens. `reference.*` is internal and contains only the shared font-family value. There is no raw color palette. Literal colors are authored directly into semantic roles; aliases reuse a deliberately shared decision. Edit the referenced source to change all roles sharing that decision. The normalized sRGB components are authoritative; there is no separately maintained hex palette.
 
 ## Color
 
@@ -39,6 +39,8 @@ Use the semantic typography composites as complete text styles. The shared refer
 
 `heading-2`, `heading-3`, `body`, `body-small`, `label`, and `caption` form the ordinary application hierarchy. Reserve `heading-1` for rare high-level contexts. Use body small for supporting or denser workflow content without replacing the main reading hierarchy; captions are secondary annotations, not a way to shrink primary tasks. Labels distinguish control names with modest weight rather than decorative emphasis.
 
+`typography.field-label` is the narrowly scoped Input label role: 0.75rem with a 16/12 line-height and weight 500. General `typography.label` remains unchanged.
+
 Font sizes use rem units to respect the user's root font size. Line heights are unitless multipliers; letter spacing remains normal. Exact values belong only in the token source. Visual style names do not dictate HTML heading levels or replace semantic document structure.
 
 ## Spacing
@@ -51,7 +53,7 @@ The [spacing rule](../rules/README.md#spacing-tokens-only) now resolves to a con
 
 ## Radius
 
-Use `radius.small`, `radius.default`, and `radius.large` purposefully according to the role and scale of a surface or control. The foundation provides restrained choices; component mappings remain later work.
+Use `radius.small`, `radius.default`, and `radius.large` purposefully according to the role and scale of a surface or control. Button maps to `radius.small`; Input maps to `radius.default`; Card maps to `radius.large`.
 
 Pill/full rounding is reserved for semantics such as status indicators, tags, or chips. None are in the initial component scope, so no full-rounding token is added now. Do not approximate pill shapes by misusing the largest available radius.
 
@@ -62,3 +64,11 @@ The token source owns `border.width.default`, `focus.ring.width`, and `focus.rin
 Use the default governed width for visible borders with semantic color roles. Controls use `color.border.control` and `color.border.control-hover` for their identifying boundaries, with the existing governed error/disabled treatments where applicable. Card separators retain their subtle border role. There are no decorative border-width variants; an intentionally unpainted ghost Button remains borderless at rest.
 
 Use `color.focus.ring` with the governed ring width and offset. Prefer `:focus-visible` for keyboard-visible focus treatment, preserving native focus behavior and visibility alongside errors. Ring geometry alone does not establish accessibility compliance; test contrast, clipping, keyboard behavior, and surrounding surfaces in the actual components.
+
+## Shadow
+
+`shadow.card` is the single subtle Card surface shadow. It provides slight separation, not an elevation scale. No additional shadow levels are defined.
+
+## Motion
+
+Use `motion.duration.fast` for Button color/state transitions, `motion.duration.standard` for linked Card feedback and arrow movement, and `motion.easing.standard` for both. Loader rotation uses `motion.duration.loader` with `motion.easing.linear`. Suppress these animations and transitions for reduced-motion users. Smooth section navigation follows the browser timing and becomes immediate under reduced motion.

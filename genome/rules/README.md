@@ -12,13 +12,13 @@ The authoritative inventory is the `color` group in [foundation tokens](../found
 
 Supported UI spacing resolves to the approved spacing scale.
 
-The authoritative scale is the `spacing` group in [foundation tokens](../foundations/tokens.json), discovered through `forma.foundations.spacing`. See [spacing guidance](../foundations/README.md#spacing) for intended use. Component contracts now map spacing roles and Stack gap options to this scale. Implementations and executable UI enforcement remain later work.
+The authoritative scale is the `spacing` group in [foundation tokens](../foundations/tokens.json), discovered through `forma.foundations.spacing`. See [spacing guidance](../foundations/README.md#spacing) for intended use. Component contracts now map spacing roles and Stack gap options to this scale. Stack now restricts gap values to this inventory; broader UI spacing enforcement remains later work.
 
 ## Reuse governed components
 
 When an authoritative governed component satisfies the requirement, consumers must use it rather than creating an equivalent primitive.
 
-Future checks may identify imports or duplicate primitives. Humans must still judge whether an authoritative component satisfies the requirement. No implementation exists yet.
+Future checks may identify imports or duplicate primitives. Humans must still judge whether an authoritative component satisfies the requirement. The four reference implementations are now available through the registry.
 
 ## Destructive styling requires destructive intent
 
@@ -48,4 +48,4 @@ Review relevance and discoverability in the workflow. Visibility alone does not 
 
 Consumers must not invent variants that are not part of the authoritative component contract.
 
-The [component contracts](../components/contracts.ts) now define supported variants and reject a variant API where none is provided. Checking actual consumer usage remains later work; source-integrity checks alone do not enforce this rule in UI.
+The [component contracts](../components/contracts.ts) now define supported variants and reject a variant API where none is provided. The four implementations reject unsupported prop/enum values at runtime and expose closed TypeScript APIs. This does not validate all consumer compositions; source-integrity checks alone do not enforce this rule throughout an application.

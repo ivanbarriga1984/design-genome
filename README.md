@@ -17,13 +17,13 @@ This is the foundation of an independent public methodology and reference implem
 - [Specification v0.1](docs/specification-v0.1.md): definition, principles, capabilities, domains, boundaries, and intended reference scope.
 - [Architecture v0.1](docs/architecture-v0.1.md): locked decisions, authority boundaries, lifecycle, and future repository responsibilities.
 
-The repository now includes the first authored [Forma Design Genome](genome/README.md): guidance, authored visual foundation tokens, specified component contracts, rule metadata, semantic relationships, and governance. Forma is the fictional reference organization. A minimal local React preview now boots with generated foundation CSS. The four components remain unimplemented, and no automated UI rule enforcement is claimed.
+The repository now includes the first authored [Forma Design Genome](genome/README.md): guidance, authored visual foundation tokens, specified component contracts, rule metadata, semantic relationships, and governance. Forma is the fictional reference organization. A local React showcase now demonstrates Button, Input, Card, and Stack with generated foundation CSS. Focused tests cover selected deterministic behavior; no comprehensive UI or accessibility compliance is claimed.
 
 ## Implementation direction
 
 The reference implementation uses original examples for Forma, a fictional collaborative workflow-management SaaS product. Its current technical direction includes Markdown/MDX, established design-token conventions, TypeScript contracts and validation, and React with TypeScript. These are reference implementation choices, not requirements of the methodology.
 
-Forma’s first visual foundations are encoded for review. Executable components, the public site, consumer adapter, and deployment remain future work. The methodology documents preserve the original foundation scope; the Genome entry point describes the current organizational sources.
+Forma’s first visual foundations are encoded for review. The four reference components are executable. The public site, consumer adapter, and deployment remain future work. The methodology documents preserve the original foundation scope; the Genome entry point describes the current organizational sources.
 
 ## Independence
 
@@ -38,7 +38,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite. The page confirms that React and the generated foundation variables load. Inter is bundled locally through `@fontsource/inter` for the three governed normal weights; no remote font service is requested.
+Open the local URL printed by Vite. The page exposes component variants, sizes, actual hover/focus interactions, disabled/loading/error examples, and a local project-creation composition. Inter is bundled locally through `@fontsource/inter` for the three governed normal weights; no remote font service is requested.
 
 ```sh
 npm run build
@@ -48,4 +48,4 @@ npm test
 npm run tokens
 ```
 
-`build` typechecks and produces ignored `dist/` output. `check` validates source integrity; `test` exercises token derivation and failure cases. No linter is configured. Vite generates token CSS before serving/building and updates it when authored tokens change. See [generated artifact responsibilities](generated/README.md). Do not edit generated CSS or treat it as design authority.
+`build` typechecks and produces ignored `dist/` output. `check` validates source integrity; `test` exercises token derivation and focused DOM component behavior using Node, tsx, and jsdom. No linter is configured. Vite generates token CSS before serving/building and updates it when authored tokens change. See [generated artifact responsibilities](generated/README.md). Do not edit generated CSS or treat it as design authority.

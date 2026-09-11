@@ -55,6 +55,20 @@ function cssValue(tokens: TokenMap, token: Token): string {
   const v = token.value;
   switch (token.type) {
     case "dimension": return dimension(v);
+    case "duration": {
+      requireValue(object(v) && typeof v.value === "number" && Number.isFinite(v.value) && v.value >= 0 && ["ms", "s"].includes(String(v.unit)), "Invalid duration");
+      return `${v.value}${v.unit}`;
+    }
+    case "cubicBezier": {
+      requireValue(Array.isArray(v) && v.length === 4 && v.every(n => typeof n === "number" && Number.isFinite(n)) && v[0] >= 0 && v[0] <= 1 && v[2] >= 0 && v[2] <= 1, "Invalid cubicBezier");
+      return `cubic-bezier(${v.join(", ")})`;
+    }
+    case "shadow": {
+      requireValue(object(v), "Invalid shadow");
+      const geometry = [v.offsetX, v.offsetY, v.blur, v.spread].map(dimension);
+      requireValue(object(v.blur) && Number(v.blur.value) >= 0, "Invalid shadow blur");
+      return `${geometry.join(" ")} ${cssValue(tokens, { type: "color", value: v.color })}`;
+    }
     case "fontFamily": {
       const families = Array.isArray(v) ? v : [v];
       requireValue(families.length && families.every(f => typeof f === "string" && f.trim()), "Invalid font family");
@@ -97,7 +111,7 @@ export function deriveCss(source: unknown): { css: string; tokens: TokenMap } {
     const token = resolveToken(tokens, path);
     const value = cssValue(tokens, token);
     if (path.startsWith("reference.")) continue;
-    requireValue(["color", "typography", "spacing", "radius", "border", "focus"].includes(path.split(".")[0]), `Unknown consumer group: ${path}`);
+    requireValue(["color", "typography", "spacing", "radius", "border", "focus", "shadow", "motion"].includes(path.split(".")[0]), `Unknown consumer group: ${path}`);
     const name = `--forma-${path.replaceAll(".", "-")}`;
     emit(name, value);
     if (token.type === "typography") {

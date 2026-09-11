@@ -19,7 +19,7 @@ type Prop = {
 };
 interface ComponentContract {
   id: string;
-  implementation: null;
+  implementation: string;
   variants: readonly string[];
   states: readonly string[];
   api: Record<string, Prop>;
@@ -31,11 +31,11 @@ interface ComponentContract {
 
 const buttonVariants = ["primary", "secondary", "destructive", "ghost"] as const;
 
-/** Finalized v0.1 contract proposals. Runtime components remain unimplemented. */
+/** v0.1 contracts connected to their executable sources (paths relative to repository root). */
 export const contracts = [
   {
     id: "forma.components.button",
-    implementation: null,
+    implementation: "src/components/Button.tsx",
     variants: buttonVariants,
     states: ["default", "hover", "focus-visible", "disabled", "loading"],
     api: {
@@ -55,7 +55,9 @@ export const contracts = [
     },
     tokenRoles: {
       borderWidth: "border.width.default", focusWidth: "focus.ring.width", focusOffset: "focus.ring.offset",
-      typography: "typography.label", radius: "radius.default",
+      typography: "typography.label", radius: "radius.small",
+      transitionDuration: "motion.duration.fast", transitionEasing: "motion.easing.standard",
+      loaderDuration: "motion.duration.loader", loaderEasing: "motion.easing.linear",
       "primary.background": "color.action.primary", "primary.hoverBackground": "color.action.primary-hover",
       "primary.text": "color.text.on-color",
       "secondary.background": "color.background.canvas", "secondary.hoverBackground": "color.background.hover",
@@ -71,7 +73,7 @@ export const contracts = [
     },
     semantics: {
       element: "button",
-      loading: "Keep the existing accessible name and content; set aria-busy=true and aria-disabled=true; suppress click and form activation while retaining focus. Do not require a spinner.",
+      loading: "Keep the existing accessible name and content; set aria-busy=true and aria-disabled=true; suppress click and form activation while retaining focus. Show the Tabler loader alongside retained content with governed rotation; use a static indicator under reduced motion.",
       disabled: "Set native disabled; suppress activation. Explicit disabled takes precedence over loading focus retention.",
       statePriority: ["disabled", "loading", "hover", "default"],
       focus: "Use :focus-visible for the governed ring; it is additive when focusable, including loading. Preserve visible separation of the focus ring from filled backgrounds.",
@@ -86,7 +88,7 @@ export const contracts = [
   },
   {
     id: "forma.components.input",
-    implementation: null,
+    implementation: "src/components/Input.tsx",
     variants: [],
     states: ["default", "hover", "focus", "disabled", "error"],
     api: {
@@ -100,7 +102,7 @@ export const contracts = [
     },
     tokenRoles: {
       borderWidth: "border.width.default", focusWidth: "focus.ring.width", focusOffset: "focus.ring.offset",
-      typography: "typography.body", label: "typography.label", supportingText: "typography.body-small",
+      typography: "typography.body", label: "typography.field-label", supportingText: "typography.body-small",
       text: "color.text.primary", placeholder: "color.text.muted", helperText: "color.text.muted",
       background: "color.background.canvas", border: "color.border.control", hoverBorder: "color.border.control-hover",
       focus: "color.focus.ring", errorBorder: "color.feedback.danger.foreground", errorText: "color.feedback.danger.foreground",
@@ -123,7 +125,7 @@ export const contracts = [
   },
   {
     id: "forma.components.card",
-    implementation: null,
+    implementation: "src/components/Card.tsx",
     variants: [],
     states: ["default", "hover", "focus-visible"],
     api: {
@@ -133,6 +135,7 @@ export const contracts = [
     tokenRoles: {
       borderWidth: "border.width.default", focusWidth: "focus.ring.width", focusOffset: "focus.ring.offset",
       background: "color.background.canvas", border: "color.border.default", text: "color.text.primary",
+      shadow: "shadow.card", transitionDuration: "motion.duration.standard", transitionEasing: "motion.easing.standard",
       radius: "radius.large", padding: "spacing.6", "link.hoverBackground": "color.background.subtle", focus: "color.focus.ring",
     },
     semantics: {
@@ -140,7 +143,7 @@ export const contracts = [
       link: "Render a with a nonempty href; href is forbidden in static mode. Preserve native navigation, focus and keyboard behavior. Hover and :focus-visible ring treatment apply only in link mode.",
       content: "Link cards require an understandable accessible name from their contents and must not contain nested links, buttons, inputs, or other interactive descendants.",
       action: "Use a Button within a static Card for actions; no whole-card action mode in v0.1.",
-      surface: "No shadow or selectable/disabled card mode.",
+      surface: "Use the single governed subtle Card shadow; no selectable/disabled card mode.",
     },
     accessibility: {
       deterministic: ["Link mode requires href and an anchor; static mode has no interactive role.", "Do not nest interactive descendants inside a link card."],
@@ -150,7 +153,7 @@ export const contracts = [
   },
   {
     id: "forma.components.stack",
-    implementation: null,
+    implementation: "src/components/Stack.tsx",
     variants: [],
     states: ["default"],
     api: {

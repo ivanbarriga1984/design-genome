@@ -1,3 +1,4 @@
+import { contracts } from "./components/contracts.ts";
 import type { Entity, Relationship } from "./governance/model.ts";
 import { genome } from "./governance/model.ts";
 import { exceptions } from "./governance/exceptions.ts";
@@ -11,10 +12,12 @@ export const entities = [
   {"id": "forma.foundations.typography", "status": "draft", "owner": "Design", "authority": {"guidance": "foundations/README.md#typography", "contract": "foundations/tokens.json#/typography"}},
   {"id": "forma.foundations.spacing", "status": "draft", "owner": "Design", "authority": {"guidance": "foundations/README.md#spacing", "contract": "foundations/tokens.json#/spacing"}},
   {"id": "forma.foundations.radius", "status": "draft", "owner": "Design", "authority": {"guidance": "foundations/README.md#radius", "contract": "foundations/tokens.json#/radius"}},
-  {"id": "forma.components.button", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#button", "contract": "components/contracts.ts#contracts"}},
-  {"id": "forma.components.input", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#input", "contract": "components/contracts.ts#contracts"}},
-  {"id": "forma.components.card", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#card", "contract": "components/contracts.ts#contracts"}},
-  {"id": "forma.components.stack", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#stack", "contract": "components/contracts.ts#contracts"}},
+  {"id": "forma.foundations.shadow", "status": "draft", "owner": "Design", "authority": {"guidance": "foundations/README.md#shadow", "contract": "foundations/tokens.json#/shadow"}},
+  {"id": "forma.foundations.motion", "status": "draft", "owner": "Design", "authority": {"guidance": "foundations/README.md#motion", "contract": "foundations/tokens.json#/motion"}},
+  {"id": "forma.components.button", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#button", "contract": "components/contracts.ts#contracts", "implementation": `../${contracts[0].implementation}`}},
+  {"id": "forma.components.input", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#input", "contract": "components/contracts.ts#contracts", "implementation": `../${contracts[1].implementation}`}},
+  {"id": "forma.components.card", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#card", "contract": "components/contracts.ts#contracts", "implementation": `../${contracts[2].implementation}`}},
+  {"id": "forma.components.stack", "status": "draft", "owner": "Design + Engineering", "authority": {"guidance": "components/README.md#stack", "contract": "components/contracts.ts#contracts", "implementation": `../${contracts[3].implementation}`}},
   {"id": "forma.patterns.form", "status": "draft", "owner": "Design", "authority": {"guidance": "patterns/form.md"}},
   {"id": "forma.patterns.destructive-action", "status": "draft", "owner": "Design", "authority": {"guidance": "patterns/destructive-action.md"}},
   {"id": "forma.content.voice", "status": "draft", "owner": "Design", "authority": {"guidance": "content/README.md#voice"}},
@@ -42,6 +45,10 @@ export const entities = [
 export type EntityId = (typeof entities)[number]["id"];
 
 export const relationships = [
+  {"from": "forma.components.button", "relation": "uses", "to": "forma.foundations.motion"},
+  {"from": "forma.components.card", "relation": "uses", "to": "forma.foundations.motion"},
+  {"from": "forma.components.card", "relation": "uses", "to": "forma.foundations.shadow"},
+
   {"from": "forma.principles.clarity-before-density", "relation": "informs", "to": "forma.patterns.form"},
   {"from": "forma.principles.hierarchy-communicates-intent", "relation": "informs", "to": "forma.patterns.form"},
   {"from": "forma.patterns.form", "relation": "uses", "to": "forma.components.button"},

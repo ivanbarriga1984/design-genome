@@ -40,6 +40,7 @@ export async function validateGenome(tokens: TokenMap) {
   assert.equal(new Set(contracts.map(c => c.id)).size, 4);
   for (const contract of contracts) {
     assert.ok(ids.has(contract.id));
+    await readFile(new URL(`../${contract.implementation}`, import.meta.url), "utf8");
     for (const role of Object.values(contract.tokenRoles)) {
       for (const path of typeof role === "string" ? [role] : role) assert.ok(tokens.has(path) && !path.startsWith("reference."), `Unknown/nonsemantic contract token: ${path}`);
     }

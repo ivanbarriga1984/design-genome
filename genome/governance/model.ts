@@ -11,6 +11,7 @@ export interface Entity {
     guidance?: string;
     contract?: string;
     metadata?: string;
+    implementation?: string;
   };
 }
 

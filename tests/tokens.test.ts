@@ -53,3 +53,23 @@ test("a removed mapped token is rejected by contract integrity checks", async ()
   tokens.delete("radius.default");
   await assert.rejects(validateGenome(tokens), /Unknown\/nonsemantic contract token/);
 });
+
+
+test("approved field typography, shadow and motion derive without losing units", () => {
+  const {css} = deriveCss(source);
+  assert.match(css, /--forma-typography-field-label: 500 0.75rem\/1.3333333333333333/);
+  assert.match(css, /--forma-shadow-card: 0px 1px 2px 0px rgb\(23 32 51 \/ 0.05\)/);
+  assert.match(css, /--forma-motion-duration-fast: 160ms/);
+  assert.match(css, /--forma-motion-duration-standard: 200ms/);
+  assert.match(css, /--forma-motion-duration-loader: 800ms/);
+  assert.match(css, /--forma-motion-easing-standard: cubic-bezier\(0.42, 0, 0.58, 1\)/);
+  for (const mutate of [
+    (s: typeof source) => { s.motion.duration.fast.$value.unit = "px"; },
+    (s: typeof source) => { s.motion.duration.loader.$value.value = -1; },
+    (s: typeof source) => { s.motion.easing.standard.$value[0] = 2; },
+    (s: typeof source) => { s.shadow.card.$value.blur.value = -1; },
+    (s: typeof source) => { s.shadow.card.$value.color.alpha = 2; },
+  ]) {
+    const invalid = structuredClone(source); mutate(invalid); assert.throws(() => deriveCss(invalid));
+  }
+});

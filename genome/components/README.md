@@ -1,6 +1,6 @@
 # Forma component guidance
 
-[contracts.ts](contracts.ts) owns the finalized v0.1 contract proposals: supported options, defaults, states, semantics, accessibility responsibilities, and token mappings. The [registry](../registry.ts) identifies their authority and draft review status. No Button, Input, Card, or Stack implementation exists yet; contract requirements are not evidence of runtime behavior.
+[contracts.ts](contracts.ts) owns the finalized v0.1 contract proposals: supported options, defaults, states, semantics, accessibility responsibilities, and token mappings. The [registry](../registry.ts) identifies their authority and draft review status. Button, Input, Card, and Stack now have executable sources linked through the registry. Contracts describe intended behavior; focused tests verify selected deterministic requirements, not comprehensive accessibility compliance.
 
 The listed API is intentionally closed. Do not expose consumer style/class hooks or forward arbitrary props that can redefine appearance. Preserve necessary native semantics through the explicitly listed API. Token roles reference the authored foundations; they are not a second palette or scale. Contract enum/API fields and state descriptions are deterministic implementation requirements. The contextual decisions below remain human review.
 
@@ -10,7 +10,7 @@ Use Button for an action the user can take. Review [action labels](../content/RE
 
 Primary expresses the dominant forward action; secondary offers a bounded alternative; ghost minimizes visual emphasis when context remains clear. The contract owns the exact variants, sizes, default props, and token roles. Ghost's resting surface is unpainted, not a new color token; review its contrast on the containing surface.
 
-Icon-only use needs both the required accessible name and human review of discoverability. Loading retains the action's existing name and focus, exposes busy/unavailable state, and blocks repeat activation; explicit disabled uses native disabling. The implementation must test mouse, keyboard, and form submission paths. A spinner is not required and cannot replace understandable semantics.
+Icon-only use needs both the required accessible name and human review of discoverability. Loading retains the action's existing name and focus, exposes busy/unavailable state, and blocks repeat activation; explicit disabled uses native disabling. The implementation must test mouse, keyboard, and form submission paths. The Tabler loader accompanies the retained label using governed rotation; reduced-motion users see a static indicator. It cannot replace understandable semantics.
 
 ## Input
 
@@ -22,7 +22,7 @@ For [Destructive Action](../patterns/destructive-action.md), additional entry is
 
 ## Card
 
-Use Card to group related information when that grouping helps the user understand it. Review grouping and density before introducing another surface. No shadow, decorative variant family, or custom radius API is provided.
+Use Card to group related information when that grouping helps the user understand it. Review grouping and density before introducing another surface. Cards use the single governed subtle shadow. No decorative variant family or custom radius API is provided.
 
 The default static card can contain real controls. Whole-card navigation is an optional native-link mode: the destination must be clear from the content, and the card cannot contain nested interactive elements. Use an actual Button within a static card for an action. A generic clickable div, fake link, or tab stop does not provide equivalent semantics.
 
@@ -32,6 +32,10 @@ Use Stack for deliberate grouping through flex layout and approved spacing. The 
 
 Keep visual and DOM reading order aligned. Human review determines whether grouping and density suit the workflow and whether wrapping remains understandable at narrow widths. A valid gap token cannot prove a useful composition.
 
-## Implementation details to resolve next
+## Executable reference
 
-The contract surface is now specified. Actual components still need semantic markup, event handling, and visual tests. Border width and focus-ring width/offset now reference the governed [foundation geometry](../foundations/README.md#border-and-focus-geometry). No decorative border-width variants are supported. Inter is bundled locally through `@fontsource/inter`. These decisions do not establish accessibility compliance; actual focus visibility and interaction behavior still require implementation and testing.
+The local showcase implements all four components and a project-creation composition. Native behavior, closed prop APIs, token inheritance, and selected accessibility responsibilities are exercised by focused tests. Border width and focus-ring width/offset now reference the governed [foundation geometry](../foundations/README.md#border-and-focus-geometry). No decorative border-width variants are supported. Inter is bundled locally through `@fontsource/inter`. These decisions do not establish accessibility compliance; contextual focus visibility and interaction behavior still require review in each composition.
+
+The shared stylesheet is imported by the reference entry point. Private inline CSS variables are derived from contract token mappings; they are not consumer style overrides. Unknown props and enum values throw rather than silently creating unsupported variants.
+
+Linked Cards inspect direct children and rendered descendants (including later mutations) for nested interactive controls. Invalid rendered descendants fail closed by disabling the link before reporting an error. This catches native controls and common interactive roles, but custom behavior must still be reviewed. Meaningful accessible naming and appropriate navigation remain human responsibilities.
