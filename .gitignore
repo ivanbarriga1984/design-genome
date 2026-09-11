@@ -11,3 +11,7 @@ generated/*.css.tmp
 # Compiled Genome is derived, never authored
 generated/forma-genome.json
 generated/forma-genome.json.tmp
+
+# Task-scoped generated Codex context
+generated/codex-destructive-action.md
+generated/codex-destructive-action.md.tmp

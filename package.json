@@ -15,7 +15,8 @@
     "test": "node --import tsx --test tests/*.test.ts tests/*.test.tsx",
     "genome:generate": "node scripts/compile-genome.ts",
     "genome:check": "node scripts/compile-genome.ts --check",
-    "genome:query": "node scripts/query-genome.ts"
+    "genome:query": "node scripts/query-genome.ts",
+    "codex:context": "node adapters/codex/context.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",

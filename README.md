@@ -61,3 +61,7 @@ npm run genome:query -- forma.patterns.destructive-action
 ```
 
 See [compiled Genome architecture, query behavior and limitations](docs/compiled-genome.md). Human-readable design-system guidance remains first-class. Generated JSON is ignored by Git and must never be edited as authority.
+
+## First Codex consumer
+
+`npm run codex:context` creates an ignored, task-scoped destructive-action context packet from the compiled Genome. It does not call Codex or implement a feature. Run the upstream `genome:generate` / `genome:check` commands first. See the [Codex consumer and qualitative comparison protocol](adapters/codex/README.md) for explicit invocation, authority boundaries, validation and limitations.

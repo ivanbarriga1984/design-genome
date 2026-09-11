@@ -11,3 +11,7 @@ Source-integrity checks are not UI rule enforcement or proof of accessible behav
 ## Compiled Genome JSON
 
 `forma-genome.json` is the ignored, generated machine-consumable snapshot. Run `npm run genome:generate`, then `npm run genome:check` to verify freshness. `npm run genome:query -- forma.patterns.destructive-action` demonstrates deterministic graph context resolution from that JSON alone. Source authority and human guidance remain upstream; this artifact does not become a new source of truth. See [compiler architecture and limitations](../docs/compiled-genome.md).
+
+## Codex context packet
+
+`codex-destructive-action.md` is an ignored consumer projection of `forma-genome.json`, produced by `npm run codex:context`. It is for explicit task attachment/pasting, not persistent project instructions or new design authority. The command does not execute the proposed implementation task. See the [first Codex consumer](../adapters/codex/README.md).
