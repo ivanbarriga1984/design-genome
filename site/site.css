@@ -621,7 +621,8 @@
   background: var(--dg-dark);
   font-size: 10px;
 }
-.dg-model-phase[aria-pressed="true"] .dg-model-node {
+.dg-model-phase[aria-pressed="true"] .dg-model-node,
+.fw-core-select > button[aria-pressed="true"] .fw-core-dot {
   background: var(--dg-purple);
   border-color: #a78ae8;
   color: white;
@@ -1467,7 +1468,8 @@
 .dg-model-phase::before,
 .dg-model-node,
 .dg-model-title,
-.dg-model-question {
+.dg-model-question,
+.fw-core-dot {
   transition:
     color var(--dg-duration) var(--dg-ease),
     background-color var(--dg-duration) var(--dg-ease),
@@ -1497,7 +1499,8 @@
   position: relative;
   margin-top: var(--dg-space-1);
 }
-.dg-model-detail::before {
+.dg-model-detail::before,
+.fw-core-explanation::before {
   content: "";
   position: absolute;
   top: -1px;
@@ -1507,10 +1510,12 @@
   background: var(--dg-on-dark);
   transition: left var(--dg-duration) var(--dg-ease);
 }
-.dg-model[data-selected="1"] .dg-model-detail::before {
+.dg-model[data-selected="1"] .dg-model-detail::before,
+.fw-core-field[data-selected="1"] .fw-core-explanation::before {
   left: 33.333%;
 }
-.dg-model[data-selected="2"] .dg-model-detail::before {
+.dg-model[data-selected="2"] .dg-model-detail::before,
+.fw-core-field[data-selected="2"] .fw-core-explanation::before {
   left: 66.666%;
 }
 .dg-model-detail > div > p {
@@ -1759,7 +1764,8 @@
   .dg-model-phase .dg-model-question {
     font-size: 14px;
   }
-  .dg-model-detail::before {
+  .dg-model-detail::before,
+  .fw-core-explanation::before {
     display: none;
   }
   .dg-model-detail {

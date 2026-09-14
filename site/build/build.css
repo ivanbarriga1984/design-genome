@@ -94,3 +94,5 @@
 /* Fragment navigation focuses the chapter; keep its cue on the heading. */
 .build-chapter:focus { outline: none; }
 .build-chapter:focus-visible .build-chapter-heading { outline: var(--dg-focus) solid var(--dg-purple); outline-offset: 8px; }
+
+.build-contents a[aria-current="location"] { color: var(--dg-purple); font-weight: 600; }

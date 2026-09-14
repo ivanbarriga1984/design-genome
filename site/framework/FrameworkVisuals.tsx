@@ -36,7 +36,7 @@ export function CoreModel() {
   const [selected, setSelected] = useState(0);
   const phase = model[selected];
   return (
-    <div className="fw-core-field">
+    <div className="fw-core-field" data-selected={selected}>
       <div className="dg-wrap">
         <div className="fw-core-index">
           <span className="fw-small">INTENT → INTELLIGENCE → INHERITANCE</span>

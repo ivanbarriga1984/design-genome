@@ -1,8 +1,9 @@
-import { useEffect, type ReactNode } from "react";
-import { Link, useLocation } from "react-router";
+import { type ReactNode } from "react";
+import { Link } from "react-router";
 import { Icon } from "../Icon";
 import { data, entityById, entityPath } from "../reference/data";
 import "./build.css";
+import { useSectionNavigation } from "../useSectionNavigation";
 
 const sections = [
   ["starting-point", "Choose a meaningful starting point"],
@@ -12,6 +13,7 @@ const sections = [
   ["context", "Supply relevant context"],
   ["inheritance", "Verify inheritance in use"],
 ] as const;
+const sectionIds = sections.map(([id]) => id);
 const pattern = entityById(data.machine.seed);
 const button = entityById("forma.components.button");
 const connection = data.relationships.find(edge => edge.from === pattern.id && edge.to === button.id)!;
@@ -36,10 +38,7 @@ function Chapter({ index, methodology, action, children }: { index: number; meth
   </section>;
 }
 export default function Build() {
-  const { hash } = useLocation();
-  useEffect(() => {
-    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
-  }, [hash]);
+  const { nav, active, onClick } = useSectionNavigation(sectionIds);
   return <article className="build-page">
     <header className="build-opening dg-wrap">
       <div className="build-publication"><span className="dg-eyebrow"><span className="dg-point" />Build your own</span><span>AN IMPLEMENTATION GUIDE / v0.1</span></div>
@@ -51,7 +50,7 @@ export default function Build() {
       <dl className="build-key"><div><dt>Methodology</dt><dd>The existing model, eight principles, additive approach, and authority boundaries.</dd></div><div><dt>Recommended practice</dt><dd>Suggested actions and review questions to adapt to your organization.</dd></div><div><dt>Forma example</dt><dd>Evidence from the fictional reference system. Its choices are not universal requirements.</dd></div></dl>
     </div>
     <div className="build-guide dg-wrap">
-      <nav className="build-contents" aria-label="Implementation guide sections"><span className="build-label">In this guide</span><ol>{sections.map(([id, title], index) => <li key={id}><a href={`#${id}`}><span>0{index + 1}</span>{title}</a></li>)}</ol><p>Evidence links open in a new tab. Keep this guide open, inspect the reference, then return to continue.</p></nav>
+      <nav ref={nav} className="build-contents" aria-label="Implementation guide sections"><span className="build-label">In this guide</span><ol>{sections.map(([id, title], index) => <li key={id}><a href={`#${id}`} onClick={onClick} aria-current={active === id ? "location" : undefined}><span>0{index + 1}</span>{title}</a></li>)}</ol><p>Evidence links open in a new tab. Keep this guide open, inspect the reference, then return to continue.</p></nav>
       <div className="build-chapters">
         <Chapter index={0} methodology="Design Genome is additive. A Minimum Viable Genome is a small, coherent slice of connected design knowledge—not a requirement to replace the system you already have." action="Name one workflow, identify its relevant knowledge and owners, and record the gaps you will leave visible in this first slice.">
           <div className="build-practice"><span className="build-label">Recommended practice</span><h3>Choose a decision you can actually inspect.</h3><p>Pick a real workflow with a clear objective and a manageable boundary. Reuse the guidance, tokens, components, and constraints that already support it. Ask who owns each decision before you begin encoding it.</p><ul><li>What does this workflow need to carry forward?</li><li>Which sources already express those decisions?</li><li>Where is guidance missing, conflicting, or awaiting review?</li></ul><p>Keep an inventory suited to your team. This does not prescribe a repository, schema, or universal readiness checklist.</p></div>

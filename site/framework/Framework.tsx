@@ -1,8 +1,10 @@
-import { Link, useLocation } from "react-router";
-import { useEffect, type ReactNode } from "react";
+import { Link } from "react-router";
+import { type ReactNode } from "react";
 import { Icon } from "../Icon";
 import { CoreModel, KnowledgeMap } from "./FrameworkVisuals";
 import "./framework.css";
+import { useSectionNavigation } from "../useSectionNavigation";
+const sectionIds = ["the-shift", "core-model", "connected-knowledge", "knowledge-travels", "minimum-genome"];
 const repo = "https://github.com/ivanbarriga1984/design-genome/blob/main/";
 function SectionLabel({
   number,
@@ -19,13 +21,7 @@ function SectionLabel({
   );
 }
 export default function Framework() {
-  const { hash } = useLocation();
-  useEffect(() => {
-    if (hash)
-      document
-        .getElementById(hash.slice(1))
-        ?.scrollIntoView({ block: "start" });
-  }, [hash]);
+  const { nav, active, onClick } = useSectionNavigation(sectionIds, true);
   return (
     <article className="fw-page">
       <header className="fw-opening dg-wrap">
@@ -58,14 +54,16 @@ export default function Framework() {
             </a>
           </div>
         </div>
-        <nav className="fw-contents" aria-label="On this page">
-          <a href="#the-shift">The shift</a>
-          <a href="#core-model">The model</a>
-          <a href="#connected-knowledge">The connections</a>
-          <a href="#knowledge-travels">In practice</a>
-          <a href="#minimum-genome">Your starting point</a>
-        </nav>
       </header>
+      <div className="fw-contents-sticky">
+        <nav ref={nav} className="fw-contents dg-wrap" aria-label="On this page">
+          <a href="#the-shift" onClick={onClick} aria-current={active === "the-shift" ? "location" : undefined}>The shift</a>
+          <a href="#core-model" onClick={onClick} aria-current={active === "core-model" ? "location" : undefined}>The model</a>
+          <a href="#connected-knowledge" onClick={onClick} aria-current={active === "connected-knowledge" ? "location" : undefined}>The connections</a>
+          <a href="#knowledge-travels" onClick={onClick} aria-current={active === "knowledge-travels" ? "location" : undefined}>In practice</a>
+          <a href="#minimum-genome" onClick={onClick} aria-current={active === "minimum-genome" ? "location" : undefined}>Your starting point</a>
+        </nav>
+      </div>
       <section id="the-shift" className="fw-section dg-wrap fw-editorial">
         <SectionLabel number="01">The shift</SectionLabel>
         <div>
