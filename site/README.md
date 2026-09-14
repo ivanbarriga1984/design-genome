@@ -5,7 +5,9 @@ This is the public website implementation, separate from the fictional Forma org
 ## Applications and routes
 
 - `/` — public homepage.
-- `/framework`, `/reference`, `/build` — intentionally small section entry pages. Their full documentation trees are outside this pass.
+- `/framework` — editorial methodology chapter with an expanded core model, registry-backed relationship explorer, and the Forma consumer example.
+- `/reference` — browsable Forma reference: seven domain indexes, 27 registered entity details, and `/reference/machine-context`.
+- `/build` — intentionally small section entry page; the full guide remains deferred.
 - `/reference/forma/` — separate HTML entry loading the original `src/main.tsx` showcase, including its original styles and Inter font.
 - Unmatched public paths — a page-not-found view.
 
@@ -43,3 +45,21 @@ Native links and buttons, a skip link, visible focus, current-route indication, 
 Run `npm run dev`. Visit the homepage and `/reference/forma/` on the reported port. `npm run build` builds both entry points and typechecks the project. Existing `npm test`, `npm run check`, and `npm run genome:check` remain applicable.
 
 Visual review should concentrate on headline line breaks, editorial pacing, the core-model interaction, and the distinct public/Forma identities before the design is extended into the documentation sections.
+
+## Framework chapter
+
+`framework/Framework.tsx` is loaded separately at `/framework`. Its stylesheet is scoped to the chapter and its `fw-` classes. The approved homepage and public foundation are unchanged. `FrameworkVisuals.tsx` presents the core model and reads selected actual registry relationships, ownership, and status for the interactive connection map; it does not generate context or run an implementation. The nine sections expand the additive thesis, core model, connected knowledge, capabilities, consumer journey, minimum scope, ownership, and next steps. Fragment links work on direct entry as well as within the chapter.
+
+## Forma Reference browser
+
+`reference/Reference.tsx` provides overview, domain indexes, entity details, and Machine Context under `/reference/*`. The restrained local rail collapses into a native button disclosure on small screens. Entity breadcrumbs, section anchors, source links, and directional relationship links keep the current context visible. Unregistered paths show a scoped not-found view. `/reference/forma/` remains the original separate showcase entry and is reached with a document navigation.
+
+The Vite virtual module in `reference/plugin.ts` calls the existing compiler and resolver through `reference/projection.ts`. It runs source integrity checks and produces an in-memory presentation projection from current canonical sources, without authoring or editing generated Genome files. It reuses the approved consumer’s excerpt function for exact registered Markdown scope. The token transformer supplies resolved CSS display values; original token records and aliases remain available. Production builds derive fresh data rather than requiring a checked-in generated snapshot. Imported TypeScript authority changes restart Vite through its config dependencies; watched Markdown/token changes invalidate the Reference module.
+
+`Guidance.tsx` renders the limited Markdown constructs present in the canonical guides as React elements (no raw HTML). Registered guidance links route to the corresponding detail, domain links route to indexes, and other references retain their source locations. Excerpts are labeled authored; site framing is explanatory. Older milestone wording is preserved in authored excerpts rather than silently rewritten. Current executable availability is shown separately through actual imports and contracts.
+
+`Examples.tsx` imports the original four Forma components and their class-scoped stylesheet; it does not import the showcase’s global styles. Inter and Forma tokens stay separate from the public Manrope/purple identity. Examples are local only, without persistence or product workflows. Foundations visualize the actual semantic color, typography, spacing, radius, shadow, and motion records. Border/focus geometry is supporting information, not a fabricated registry entity.
+
+Machine Context shows the approved destructive-action resolver result and small real structured excerpts. It preserves the conditional Input association, original rule levels/null checkers, draft exception scope, and implementation/review boundaries. It does not run Codex or supply an entire context packet by default. Source hashes are build-time provenance, not proof of compliance.
+
+Validation: the existing build/typecheck, test, source-integrity and compiled-freshness commands apply. Two focused Reference tests check guidance scope, navigable endpoints, unchanged contracts/relationships, conditional context, and token derivation. Review overview → foundations → component → pattern → showcase, and governance → machine context → Framework in the browser. Search, CMS, backend, new rules/components, and full Build content remain deferred.

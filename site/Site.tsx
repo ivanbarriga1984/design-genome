@@ -1,38 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router";
 import { Home } from "./Home";
+const Reference = lazy(() => import("./reference/Reference"));
+const Framework = lazy(() => import("./framework/Framework"));
 import { Icon } from "./Icon";
 
 export const repository = "https://github.com/ivanbarriga1984/design-genome";
 const pages = {
-  framework: {
-    title: "Framework",
-    eyebrow: "The methodology",
-    heading: "A shared system.\nMore ways to use it.",
-    text: "Design Genome extends design-system practice with structured intelligence, executable decisions, and connections to consumers. Human-readable documentation remains essential.",
-    link: "Read the v0.1 specification",
-    source: "docs/specification-v0.1.md",
-    contents: [
-      "Definition & thesis",
-      "Intent, Intelligence, Inheritance",
-      "Four capabilities",
-      "Governance",
-    ],
-  },
-  reference: {
-    title: "Reference",
-    eyebrow: "Meet Forma",
-    heading: "A real reference.\nA fictional organization.",
-    text: "Forma is a fictional B2B workflow product. Its reference Genome connects authored guidance, structured contracts, working components, and a compiled representation you can inspect.",
-    link: "Explore the Forma showcase",
-    source: "",
-    contents: [
-      "Foundations & components",
-      "Patterns & content",
-      "Rules & governance",
-      "Compiled Genome & machine context",
-    ],
-  },
   build: {
     title: "Build your own",
     eyebrow: "Start with what exists",
@@ -96,7 +70,7 @@ export function Site() {
     document.title =
       location.pathname === "/"
         ? "Design Genome — For humans and the AI era"
-        : `${page?.title ?? "Page not found"} — Design Genome`;
+        : `${location.pathname === "/framework" ? "Framework" : location.pathname.startsWith("/reference") ? "Reference" : (page?.title ?? "Page not found")} — Design Genome`;
     if (previous.current !== location.pathname) {
       window.scrollTo({ top: 0, behavior: "instant" });
       main.current?.focus({ preventScroll: true });
@@ -151,6 +125,21 @@ export function Site() {
       <main id="main" ref={main} tabIndex={-1}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route
+            path="/framework"
+            element={
+              <Suspense
+                fallback={
+                  <div className="dg-entry dg-wrap" role="status">
+                    Loading the framework…
+                  </div>
+                }
+              >
+                <Framework />
+              </Suspense>
+            }
+          />
+          <Route path="/reference/*" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the reference…</div>}><Reference /></Suspense>} />
           {Object.keys(pages).map((name) => (
             <Route
               key={name}
