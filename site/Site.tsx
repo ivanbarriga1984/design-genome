@@ -3,61 +3,10 @@ import { Link, NavLink, Route, Routes, useLocation } from "react-router";
 import { Home } from "./Home";
 const Reference = lazy(() => import("./reference/Reference"));
 const Framework = lazy(() => import("./framework/Framework"));
+const Build = lazy(() => import("./build/Build"));
 import { Icon } from "./Icon";
 
 export const repository = "https://github.com/ivanbarriga1984/design-genome";
-const pages = {
-  build: {
-    title: "Build your own",
-    eyebrow: "Start with what exists",
-    heading: "Your system.\nYour next chapter.",
-    text: "You do not need to rebuild your design system. Start with a Minimum Viable Genome: a small, coherent set of connected design knowledge that can be understood, consumed, and reviewed.",
-    link: "Read the reference architecture",
-    source: "docs/architecture-v0.1.md",
-    contents: [
-      "Minimum Viable Genome",
-      "Evolving an existing system",
-      "Ownership & portability",
-      "Adapters & consumers",
-    ],
-  },
-};
-function Entry({ name }: { name: keyof typeof pages }) {
-  const page = pages[name];
-  return (
-    <div className="dg-entry dg-wrap">
-      <span className="dg-eyebrow">{page.eyebrow}</span>
-      <h1>{page.heading}</h1>
-      <p className="dg-lead">{page.text}</p>
-      <a
-        className="dg-action"
-        href={
-          page.source
-            ? `${repository}/blob/main/${page.source}`
-            : "/reference/forma/"
-        }
-      >
-        {page.link}
-        <Icon name={page.source ? "external" : "arrow"} />
-      </a>
-      <div className="dg-entry-index">
-        <div>
-          <span className="dg-eyebrow">Coming into focus</span>
-          <h2>{page.title}</h2>
-          <p>
-            The browsable guide will grow here. Explore the current reference
-            material while it takes shape.
-          </p>
-        </div>
-        <ol>
-          {page.contents.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ol>
-      </div>
-    </div>
-  );
-}
 export function Site() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
@@ -66,11 +15,10 @@ export function Site() {
   const previous = useRef(location.pathname);
   useEffect(() => {
     setOpen(false);
-    const page = pages[location.pathname.slice(1) as keyof typeof pages];
     document.title =
       location.pathname === "/"
         ? "Design Genome — For humans and the AI era"
-        : `${location.pathname === "/framework" ? "Framework" : location.pathname.startsWith("/reference") ? "Reference" : (page?.title ?? "Page not found")} — Design Genome`;
+        : `${location.pathname === "/framework" ? "Framework" : location.pathname.startsWith("/reference") ? "Reference" : location.pathname === "/build" ? "Build your own" : "Page not found"} — Design Genome`;
     if (previous.current !== location.pathname) {
       window.scrollTo({ top: 0, behavior: "instant" });
       main.current?.focus({ preventScroll: true });
@@ -140,13 +88,7 @@ export function Site() {
             }
           />
           <Route path="/reference/*" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the reference…</div>}><Reference /></Suspense>} />
-          {Object.keys(pages).map((name) => (
-            <Route
-              key={name}
-              path={`/${name}`}
-              element={<Entry name={name as keyof typeof pages} />}
-            />
-          ))}
+          <Route path="/build" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the guide…</div>}><Build /></Suspense>} />
           <Route
             path="*"
             element={

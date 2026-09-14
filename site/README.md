@@ -7,7 +7,7 @@ This is the public website implementation, separate from the fictional Forma org
 - `/` — public homepage.
 - `/framework` — editorial methodology chapter with an expanded core model, registry-backed relationship explorer, and the Forma consumer example.
 - `/reference` — browsable Forma reference: seven domain indexes, 27 registered entity details, and `/reference/machine-context`.
-- `/build` — intentionally small section entry page; the full guide remains deferred.
+- `/build` — six-part practical implementation guide, with contextual Forma evidence and explicit methodology / recommended practice / example distinctions.
 - `/reference/forma/` — separate HTML entry loading the original `src/main.tsx` showcase, including its original styles and Inter font.
 - Unmatched public paths — a page-not-found view.
 
@@ -62,4 +62,12 @@ The Vite virtual module in `reference/plugin.ts` calls the existing compiler and
 
 Machine Context shows the approved destructive-action resolver result and small real structured excerpts. It preserves the conditional Input association, original rule levels/null checkers, draft exception scope, and implementation/review boundaries. It does not run Codex or supply an entire context packet by default. Source hashes are build-time provenance, not proof of compliance.
 
-Validation: the existing build/typecheck, test, source-integrity and compiled-freshness commands apply. Two focused Reference tests check guidance scope, navigable endpoints, unchanged contracts/relationships, conditional context, and token derivation. Review overview → foundations → component → pattern → showcase, and governance → machine context → Framework in the browser. Search, CMS, backend, new rules/components, and full Build content remain deferred.
+Validation: the existing build/typecheck, test, source-integrity and compiled-freshness commands apply. Two focused Reference tests check guidance scope, navigable endpoints, unchanged contracts/relationships, conditional context, and token derivation. Review overview → foundations → component → pattern → showcase, and governance → machine context → Framework in the browser. Search, CMS, backend, and new rules/components remain deferred.
+
+## Build guide
+
+`build/Build.tsx` is lazy-loaded at `/build`, with chapter-scoped `build.css`. Its six sections follow the recommended sequence: choose a meaningful starting point; preserve intent and judgment; make intelligence addressable; make authority explicit; supply relevant context; verify inheritance in use. This is practical application guidance, not canonical stages or a maturity model. Each section labels Methodology, Recommended practice, and Forma example separately and ends with a practical next action.
+
+The guide reuses the existing Reference projection for displayed IDs, relationships, contract token roles, rule validation metadata, and exception ownership/status. Reference evidence opens in a separately labeled tab so readers retain their place. A compact anchor index supports direct section entry; native links, shared focus styles, and responsive layouts keep the guide usable without completion tracking or new interaction dependencies.
+
+Review `/build` at desktop and mobile widths, section anchors (including direct entry), keyboard navigation, and evidence links into Reference. Existing build/typecheck, tests, source-integrity, and compiled-freshness checks apply. No new methodology, universal schema, scaffolding tool, free-text resolver, certification mechanism, or release workflow is introduced.
