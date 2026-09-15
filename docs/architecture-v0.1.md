@@ -2,6 +2,8 @@
 
 Status: locked architecture decisions for the project foundation. Concrete contracts, identifier syntax, token tooling, registry schema, and consumer implementation are not established by this document.
 
+The foundation-state descriptions below are historical, not the current delivery inventory. The [root README](../README.md), [Forma Genome](../genome/README.md), [compiled Genome documentation](compiled-genome.md), and [site README](../site/README.md) describe delivered v0.1 functionality.
+
 See [Specification v0.1](specification-v0.1.md) for the methodology, intended reference scope, positioning, and IP boundary.
 
 ## AD-01 — Distributed authority
@@ -127,4 +129,4 @@ No package manifest, dependency lockfile, application framework, build system, b
 
 The locked direction does not yet specify a concrete token standard/version, entity ID format, manifest schema, component contract shape, validation library, package manager, or first AI consumer. Those choices should be resolved against the small representative reference Genome when implementation needs them. They are not additional methodology decisions made by this foundation.
 
-The public site and Render deployment remain later work as recorded in the specification. No GitHub push or deployment is part of this bootstrap.
+The public site was deferred at bootstrap and is now implemented. Render deployment remains a separate release step.

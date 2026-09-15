@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { publicMetadata } from "./site/metadata-plugin.ts";
 import { referenceContent } from "./site/reference/plugin.ts";
 import { generateTokens } from "./scripts/generate-tokens.ts";
 import { tokenFile } from "./scripts/tokens.ts";
@@ -30,6 +31,7 @@ export default defineConfig({
       },
     },
     referenceContent(),
+    publicMetadata(),
     react(),
   ],
   server: { host: "127.0.0.1" },

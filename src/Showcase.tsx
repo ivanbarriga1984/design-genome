@@ -146,6 +146,6 @@ export function Showcase() {
         </div>
       </section>
     </main>
-    <footer>Forma · Internal component reference <span>v0.1 / Local development</span></footer>
+    <footer>Forma · Internal component reference <span>v0.1 / Interactive example</span></footer>
   </>;
 }

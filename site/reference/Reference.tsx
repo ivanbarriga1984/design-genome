@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router";
+import { applyPageMetadata } from "../metadata";
 import { Icon } from "../Icon";
 import { data, domains, entityById, entityPath, github, sourceLink, tokenPath, type ReferenceEntity } from "./data";
 import { Guidance } from "./Guidance";
@@ -108,7 +109,7 @@ export default function Reference() {
     setNavOpen(false);
     // Shared shell updates first; apply the entity-specific title after its effect.
     const frame=requestAnimationFrame(()=>{
-      document.title=`${title} — Forma Reference — Design Genome`;
+      applyPageMetadata(location.pathname, `${title} — Forma Reference — Design Genome`);
       if(location.hash) document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
     });
     return ()=>cancelAnimationFrame(frame);

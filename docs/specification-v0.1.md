@@ -1,6 +1,6 @@
 # Design Genome Specification v0.1
 
-Status: foundational specification. The reference implementation described here is planned, not implemented.
+Status: v0.1 specification. The Forma reference implementation and public website are implemented; production deployment remains a separate release step.
 
 This document defines the methodology and intended v0.1 scope. [Architecture v0.1](architecture-v0.1.md) records the locked technical and authority decisions for realizing it.
 
@@ -91,7 +91,7 @@ Intent is cross-cutting and is not a standalone repository domain. Governance is
 
 ## Intended minimum v0.1 reference Genome
 
-The reference implementation should contain a small representative subset sufficient to test the methodology. The following is future scope, not a list of delivered features.
+The reference implementation should contain a small representative subset sufficient to test the methodology. The following records the original minimum scope. The delivered slice is documented in the [Forma Genome](../genome/README.md) and [public site](../site/README.md).
 
 | Area | Intended representative scope |
 | --- | --- |
@@ -106,7 +106,7 @@ The reference implementation should contain a small representative subset suffic
 | Connectable | One reproducible AI consumer/adapter first. |
 | Validation | Representative real deterministic checks, without pretending subjective UX judgment can be automated. |
 
-The methodology’s eight principles above are distinct from the representative organizational principles that will be authored for the fictional reference Genome.
+The methodology’s eight principles above are distinct from the representative organizational principles authored for the fictional Forma reference Genome.
 
 ## Positioning boundaries
 
@@ -125,13 +125,13 @@ Do not claim that:
 
 This is an independent public project. Do not use, copy, infer, or recreate proprietary FlavorCloud code, components, assets, internal schemas, product designs, confidential implementation details, or employer-specific material.
 
-The reference implementation will use an original fictional product/company and original examples. No fictional brand is established in this foundation pass.
+The reference implementation uses Forma, an original fictional product/company, and original examples.
 
-## Deferred public site and deployment
+## Public site and deployment
 
-The eventual public site will live at **design-genome.com** and will itself be built using the Design Genome reference implementation.
+The public site is implemented for **design-genome.com**. It consumes the Forma reference implementation in its examples and keeps the public Design Genome identity separate from Forma.
 
-The recorded visual direction for that later work is:
+The following records the original public-site visual direction:
 
 - Stripe as primary inspiration for elegance, pacing, and boldness; Vercel as secondary reference.
 - Primarily white, purple as primary, and selective blue accents; no gradients.
@@ -142,8 +142,8 @@ The recorded visual direction for that later work is:
 - Selected visual compositions extending beyond the primary content grid toward viewport edges.
 - A premium, restrained, technical, modern, design-leadership-oriented character; no AI-neon/cyberpunk aesthetic.
 
-Hosting will use Render. The later target production workflow is:
+Render remains the intended host. The target production workflow is:
 
 VS Code + Codex → commit/push to GitHub main → automatic Render production deployment → design-genome.com.
 
-These site and hosting choices do not impose tool dependencies on the methodology. Building the site or configuring Render is outside the foundation assignment.
+These site and hosting choices do not impose tool dependencies on the methodology. The site is implemented; configuring production hosting remains separate.

@@ -12,10 +12,10 @@ Design Genome is additive to traditional design systems. Human-facing documentat
 
 ## Project status
 
-This is the foundation of an independent public methodology and reference implementation. The v0.1 documents establish the project’s scope and architecture; they do not indicate that a working v0.1 implementation has shipped.
+The v0.1 methodology, public website, and Forma reference implementation are implemented. Production deployment remains a separate release step.
 
 - [Specification v0.1](docs/specification-v0.1.md): definition, principles, capabilities, domains, boundaries, and intended reference scope.
-- [Architecture v0.1](docs/architecture-v0.1.md): locked decisions, authority boundaries, lifecycle, and future repository responsibilities.
+- [Architecture v0.1](docs/architecture-v0.1.md): locked decisions, authority boundaries, lifecycle, and repository responsibilities.
 
 The repository now includes the first authored [Forma Design Genome](genome/README.md): guidance, authored visual foundation tokens, specified component contracts, rule metadata, semantic relationships, and governance. Forma is the fictional reference organization. A local React showcase now demonstrates Button, Input, Card, and Stack with generated foundation CSS. Focused tests cover selected deterministic behavior; no comprehensive UI or accessibility compliance is claimed.
 
@@ -23,7 +23,7 @@ The repository now includes the first authored [Forma Design Genome](genome/READ
 
 The reference implementation uses original examples for Forma, a fictional collaborative workflow-management SaaS product. Its current technical direction includes Markdown/MDX, established design-token conventions, TypeScript contracts and validation, and React with TypeScript. These are reference implementation choices, not requirements of the methodology.
 
-Forma’s first visual foundations are encoded for review. The four reference components are executable. The public site, consumer adapter, and deployment remain future work. The methodology documents preserve the original foundation scope; the Genome entry point describes the current organizational sources.
+Forma’s visual foundations, four executable components, compiled Genome, and first Codex context consumer are delivered. The public website includes Framework, Reference, and Build your own. The methodology documents retain clearly labeled foundation history; the Genome entry point describes the current organizational sources. Deployment remains to be configured.
 
 ## Independence
 
@@ -31,14 +31,14 @@ Do not use, copy, infer, or recreate proprietary FlavorCloud code, components, a
 
 ## Local reference environment
 
-Use Node.js 22.18+ (or a newer supported release) and npm. The scripts use Node's native TypeScript support. This is Vite + React + TypeScript with plain CSS, not the public documentation site.
+Use Node.js 22.18+ (or a newer supported release) and npm. The scripts use Node's native TypeScript support. The public site and isolated Forma showcase use Vite + React + TypeScript with plain CSS.
 
 ```sh
 npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite. The page exposes component variants, sizes, actual hover/focus interactions, disabled/loading/error examples, and a local project-creation composition. Inter is bundled locally through `@fontsource/inter` for the three governed normal weights; no remote font service is requested.
+Open the local URL printed by Vite for the public Design Genome site. Visit `/reference/forma/` for the isolated component showcase, or `/reference` for the browsable Genome. The showcase exposes component variants, sizes, actual hover/focus interactions, disabled/loading/error examples, and a local project-creation composition. Inter is bundled locally through `@fontsource/inter` for the three governed normal weights; no remote font service is requested.
 
 ```sh
 npm run build
@@ -69,3 +69,9 @@ See [compiled Genome architecture, query behavior and limitations](docs/compiled
 ## Disposable experiment preparation
 
 The [experiment-export harness](experiments/README.md) exports the pinned consumer milestone into two self-contained implementation fixtures. It freezes runtime dependencies privately and supplies the approved context packet only to the Genome-informed condition. Export/verification commands prepare the experiment; they never run either implementation condition or alter the canonical Forma implementation.
+
+## Licensing and reuse
+
+The knowledge is licensed under **CC BY 4.0**; the software that operates on or implements it is licensed under **MIT**. This boundary follows the artifact’s role, not its file format. In particular, the entire authored `genome/` tree, including TypeScript contracts/records and JSON tokens, is CC BY 4.0.
+
+See [LICENSE.md](LICENSE.md) for the path/role mapping, attribution, embedded content, generated material, and third-party exclusions. Copyright © 2026 Ivan Barriga. Third-party materials retain their own licenses.

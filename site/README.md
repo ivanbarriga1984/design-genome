@@ -13,7 +13,9 @@ This is the public website implementation, separate from the fictional Forma org
 
 `site/main.tsx` mounts React Router in declarative mode. `Site.tsx` owns navigation, route titles, route-change focus/scroll handling, and the shared footer. Future nested documentation routes can be added under the existing top-level routes without replacing the application architecture.
 
-Vite builds two HTML entries. A future static host must serve real files first (especially `/reference/forma/index.html`) and then fall back to `/index.html` for public application routes. Hosting is not configured in this pass. Use the trailing-slash Forma URL.
+Vite builds two isolated applications. The public metadata plugin also writes copies of the public application's HTML shell for existing public routes, each with its own title/canonical/sharing metadata. These are delivery files for the same SPA, not additional application architectures or routes.
+
+Production hosting must serve real assets and the route-specific directory indexes before falling back to `/index.html`. Resolve both `/framework` and `/framework/` to `/framework/index.html`, and likewise for Build and the existing Reference routes. Redirect `/reference/forma` to `/reference/forma/`, serving its independent `/reference/forma/index.html`. The Vite production preview implements this resolution for verification. A host that sends every URL to the root HTML would discard the route-specific metadata for non-JavaScript sharing clients. Hosting is not configured in this pass.
 
 ## Public visual foundation
 
@@ -71,3 +73,11 @@ Validation: the existing build/typecheck, test, source-integrity and compiled-fr
 The guide reuses the existing Reference projection for displayed IDs, relationships, contract token roles, rule validation metadata, and exception ownership/status. Reference evidence opens in a separately labeled tab so readers retain their place. A compact anchor index supports direct section entry; native links, shared focus styles, and responsive layouts keep the guide usable without completion tracking or new interaction dependencies.
 
 Review `/build` at desktop and mobile widths, section anchors (including direct entry), keyboard navigation, and evidence links into Reference. Existing build/typecheck, tests, source-integrity, and compiled-freshness checks apply. No new methodology, universal schema, scaffolding tool, free-text resolver, certification mechanism, or release workflow is introduced.
+
+## Release metadata and reuse
+
+`metadata.ts` supplies baseline identity for `https://design-genome.com` and updates metadata during client-side navigation. `metadata-plugin.ts` supplies matching initial HTML metadata at build time, deriving Reference routes/titles from the existing projection. Canonicals omit trailing slashes except the homepage and isolated Forma entry; query strings and fragments are excluded. Framework, Build, and Reference accept either trailing-slash form. Unknown paths retain the existing not-found behavior.
+
+`public/design-genome-social.png` is the single 1200 × 630 Open Graph/Twitter card asset, using locally available Manrope and the approved public copy and identity. The production image URL is `https://design-genome.com/design-genome-social.png`. No sitemap, content prerendering, or expanded SEO system is introduced. Verify directory-index resolution, the bare Forma redirect, production-domain metadata, and image delivery on the actual host before publishing.
+
+See [the project licensing boundary](../LICENSE.md): software is MIT; authored content, knowledge, original diagrams, and social artwork are CC BY 4.0, including content embedded in software files. Third-party licenses remain intact.

@@ -2,7 +2,7 @@
 
 Forma is clear, calm, and precise: restrained, crisp, highly legible B2B workflow software with moderately spacious density. These foundations support forms, dashboards, settings, tables, and workflow-heavy interfaces. Avoid gradients, glassmorphism, futuristic styling, excessive decoration, gratuitous rounding, oversized everyday typography, and arbitrary visual values.
 
-Forma and Design Genome have separate visual identities. The future public site's Manrope/purple/blue direction is not inherited by Forma.
+Forma and Design Genome have separate visual identities. The public site's Manrope/purple/blue direction is not inherited by Forma.
 
 ## Authority and representation
 
@@ -49,7 +49,7 @@ Use the governed `spacing.*` dimension tokens for supported padding, margins, an
 
 Group related labels and controls closely, provide breathing room within forms and cards, and reserve larger gaps for distinct sections. Moderately spacious density should support workflow comprehension without turning every table or settings view into a sparse presentation. Contextual density remains a human decision; no density modes or arbitrary intermediate steps are added.
 
-The [spacing rule](../rules/README.md#spacing-tokens-only) now resolves to a concrete scale. It does not yet define every component's spacing mapping or enforce usage.
+The [spacing rule](../rules/README.md#spacing-tokens-only) now resolves to a concrete scale. Component contracts define their spacing mappings; the rule does not itself enforce usage.
 
 ## Radius
 

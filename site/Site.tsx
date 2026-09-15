@@ -4,6 +4,7 @@ import { Home } from "./Home";
 const Reference = lazy(() => import("./reference/Reference"));
 const Framework = lazy(() => import("./framework/Framework"));
 const Build = lazy(() => import("./build/Build"));
+import { applyPageMetadata, publicPath } from "./metadata";
 import { Icon } from "./Icon";
 
 export const repository = "https://github.com/ivanbarriga1984/design-genome";
@@ -15,16 +16,18 @@ export function Site() {
   const previous = useRef(location.pathname);
   useEffect(() => {
     setOpen(false);
-    document.title =
-      location.pathname === "/"
-        ? "Design Genome — For humans and the AI era"
-        : `${location.pathname === "/framework" ? "Framework" : location.pathname.startsWith("/reference") ? "Reference" : location.pathname === "/build" ? "Build your own" : "Page not found"} — Design Genome`;
+    if (publicPath(location.pathname) === "/reference/forma/") {
+      window.location.replace(`/reference/forma/${location.search}${location.hash}`);
+      return;
+    }
+    applyPageMetadata(location.pathname);
     if (previous.current !== location.pathname) {
       window.scrollTo({ top: 0, behavior: "instant" });
       main.current?.focus({ preventScroll: true });
       previous.current = location.pathname;
     }
   }, [location.pathname]);
+  if (publicPath(location.pathname) === "/reference/forma/") return null;
   return (
     <div className="dg-site">
       <a className="dg-skip" href="#main">
