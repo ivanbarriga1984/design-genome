@@ -5,6 +5,7 @@ import { act } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { readFile } from 'node:fs/promises';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { CreationMoment } from '../site/gene/CreationMoment.tsx';
 import GeneBuilder, { Inventory } from '../site/gene/GeneBuilder.tsx';
 import { aiPrompt, decode, emptyGene, examples, json, markdown, save, slug, storageKey, structured, validateStep, type Gene } from '../site/gene/model.ts';
 import { pageMetadata } from '../site/metadata.ts';
@@ -53,7 +54,8 @@ test('Gene route metadata supports direct and trailing-slash delivery',async()=>
   for(const path of ['/build/gene','/build/gene/']){assert.equal(pageMetadata(path).title,'Build your first Gene — Design Genome');const dom=new JSDOM(metadataHtml(shell,path));assert.equal(dom.window.document.querySelector('link[rel=canonical]')?.getAttribute('href'),'https://design-genome.com/build/gene');dom.window.close();}
 });
 
-test('seven-step authoring preserves edits, relationships, storage, exports, and confirmed reset',async()=>{
+test('seven-step authoring preserves edits, relationships, storage, exports, and confirmed reset',async(t)=>{
+  t.mock.timers.enable({apis:['setTimeout']});
   const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost/build/gene'});
   Object.assign(globalThis,{window:dom.window,document:dom.window.document,HTMLElement:dom.window.HTMLElement,IS_REACT_ACT_ENVIRONMENT:true,requestAnimationFrame:(fn:FrameRequestCallback)=>{fn(0);return 0;}});
   const {createRoot}=await import('react-dom/client');const root=createRoot(document.getElementById('root')!);
@@ -83,7 +85,13 @@ test('seven-step authoring preserves edits, relationships, storage, exports, and
     await next();await choose('Usually');await choose('Document the exception');await next();
     await choose('Designers');await choose('AI coding tools');await choose('Other');await click('Create my Gene →');assert.ok(document.querySelector('[role=alert]'));await fill('.gene-field input','Product review');
     await mount();assert.equal(document.querySelector('.gene-step')!.textContent,'07 / 07 — Consumers');assert.equal(document.querySelectorAll('input:checked').length,3);
-    await click('Create my Gene →');assert.ok(document.querySelector('.gene-human'));assert.match(document.querySelector('.gene-human')!.textContent!,/Uses Button/);assert.ok(!document.querySelector('.gene-human')!.textContent!.includes('Exception reviewer'));
+    const beforeCreation=decode(dom.window.localStorage.getItem(storageKey))!.gene;
+    await click('Create my Gene →');assert.equal(document.querySelector('.gene-human'),null);assert.match(document.querySelector('.gene-creation')!.textContent!,/Structuring your Gene/);
+    assert.deepEqual(decode(dom.window.localStorage.getItem(storageKey)),{gene:beforeCreation,step:8});
+    await act(async()=>t.mock.timers.tick(900));assert.match(document.querySelector('.gene-creation')!.textContent!,/Connecting the knowledge/);
+    await act(async()=>t.mock.timers.tick(900));assert.match(document.querySelector('.gene-creation')!.textContent!,/Your first Gene is ready/);
+    await act(async()=>t.mock.timers.tick(799));assert.equal(document.querySelector('.gene-human'),null);
+    await act(async()=>t.mock.timers.tick(1));assert.ok(document.querySelector('.gene-human'));assert.equal(document.activeElement,document.querySelector('.gene-result h1'));assert.deepEqual(decode(dom.window.localStorage.getItem(storageKey))!.gene,beforeCreation);assert.match(document.querySelector('.gene-human')!.textContent!,/Uses Button/);assert.ok(!document.querySelector('.gene-human')!.textContent!.includes('Exception reviewer'));
     assert.equal(document.querySelector('.gene-inventory')!.textContent,'1 decision1 intent1 owner1 relationship1 governance boundary3 consumers');await click('Structured view');assert.match(document.querySelector('.gene-artifact pre')!.textContent!,/"type": "uses"/);
     await click('Copy structured data');assert.match(document.querySelector('.gene-copy-status')!.textContent!,/copy/i);
     const originalCreate=URL.createObjectURL, originalClick=dom.window.HTMLAnchorElement.prototype.click;
@@ -101,10 +109,27 @@ test('seven-step authoring preserves edits, relationships, storage, exports, and
       await click('Download structured data (.json)');assert.equal(await exported!.text(),exportedJson);
     } finally {URL.createObjectURL=originalCreate;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
     await click('Edit my Gene');assert.equal(document.querySelector<HTMLTextAreaElement>('#gene-decision')!.value,complete().decision);
+    // Re-creation is predictable; refresh during it restores the saved result immediately.
+    await act(async()=>[...document.querySelectorAll<HTMLButtonElement>('.gene-summary button')].find(b=>b.textContent?.includes('Consumers'))!.click());
+    await click('Create my Gene →');assert.ok(document.querySelector('.gene-creation'));await mount();assert.equal(document.querySelector('.gene-creation'),null);assert.ok(document.querySelector('.gene-human'));
+    await click('Edit my Gene');await act(async()=>t.mock.timers.tick(3000));assert.ok(document.querySelector('#gene-decision'));assert.equal(document.querySelector('.gene-result'),null);
     await click('Start over');assert.ok(document.querySelector('[role=alertdialog]'));await click('Keep my Gene');assert.equal(document.querySelector('[role=alertdialog]'),null);assert.ok(dom.window.localStorage.getItem(storageKey));
     await click('Start over');await click('Clear and start over');assert.equal(dom.window.localStorage.getItem(storageKey),null);assert.match(document.querySelector('h1')!.textContent!,/worth inheriting/);
     dom.window.localStorage.setItem(storageKey,'malformed');await mount();assert.match(document.body.textContent!,/could not be restored/);await click('Build my first Gene →');assert.equal(document.querySelector<HTMLTextAreaElement>('textarea')!.value,'');
     await click('← Back');const exampleButton=[...document.querySelectorAll<HTMLButtonElement>('.gene-examples button')][0];await act(async()=>exampleButton.click());assert.equal(document.querySelector<HTMLTextAreaElement>('textarea')!.value,examples[0]);
     Object.defineProperty(dom.window,'localStorage',{get(){throw Error('blocked');},configurable:true});await mount();assert.match(document.body.textContent!,/Local saving is unavailable/);await click('Build my first Gene →');await fill('#gene-decision','A new decision remains possible.');assert.equal(document.querySelector<HTMLTextAreaElement>('textarea')!.value,'A new decision remains possible.');
+  }finally{await act(async()=>root.unmount());dom.window.close();}
+});
+
+
+test('creation moment cancels every pending timer when unmounted',async(t)=>{
+  t.mock.timers.enable({apis:['setTimeout']});
+  const dom=new JSDOM('<div id="root"></div>');
+  Object.assign(globalThis,{window:dom.window,document:dom.window.document,HTMLElement:dom.window.HTMLElement,IS_REACT_ACT_ENVIRONMENT:true});
+  const {createRoot}=await import('react-dom/client');const root=createRoot(document.getElementById('root')!);let completions=0;
+  try{
+    await act(async()=>root.render(<CreationMoment onComplete={()=>{completions++;}}/>));
+    await act(async()=>t.mock.timers.tick(900));assert.match(document.body.textContent!,/Connecting the knowledge/);
+    await act(async()=>root.render(null));await act(async()=>t.mock.timers.tick(5000));assert.equal(completions,0);assert.equal(document.querySelector('.gene-creation'),null);
   }finally{await act(async()=>root.unmount());dom.window.close();}
 });

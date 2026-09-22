@@ -91,3 +91,19 @@
 .gene-inventory li { padding: 5px 10px; border: 1px solid var(--dg-line); border-radius: var(--dg-radius); background: var(--dg-neutral); line-height: 1.5; }
 .gene-export-actions { column-gap: 20px; }
 @media (max-width: 540px) { .gene-export-actions > .gene-primary, .gene-export-actions > .gene-secondary { flex: 1 1 100%; } }
+
+/* A short authoring transition; no data processing is represented or awaited. */
+.gene-creation { min-height: calc(100svh - 88px); padding: 48px 24px; display: grid; align-content: center; justify-items: center; gap: 24px; background: var(--dg-white); scroll-margin-top: 88px; }
+.gene-creation:focus { outline: none; }
+.gene-creation svg { display: block; width: min(360px, 80vw); height: auto; overflow: visible; }
+.gene-creation h1 { font-size: clamp(24px, 3vw, 32px); line-height: 1.3; letter-spacing: -.035em; text-align: center; color: var(--dg-ink); }
+.gene-creation circle { fill: var(--dg-white); stroke: var(--dg-purple); stroke-width: 1.5; animation: gene-assemble 1000ms ease both; }
+.gene-creation circle:last-child { fill: var(--dg-purple); }
+.gene-creation-lines path { fill: none; stroke: var(--dg-purple); stroke-width: 1; opacity: .35; stroke-dasharray: 1; animation: gene-connect 900ms 800ms ease both; }
+@keyframes gene-assemble { from { transform: translate(var(--node-x), var(--node-y)); opacity: .45; } to { transform: translate(0, 0); opacity: 1; } }
+@keyframes gene-connect { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .gene-creation circle, .gene-creation-lines path { animation: none; transform: none; }
+  .gene-creation[data-phase="0"] .gene-creation-lines { opacity: 0; }
+  .gene-creation-lines path { stroke-dasharray: none; }
+}
