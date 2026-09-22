@@ -1,0 +1,3 @@
+.present-return { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 24px; padding: 12px 24px; background: var(--dg-purple-soft); color: var(--dg-ink); font-size: 14px; }
+.present-return a { color: var(--dg-purple); font-weight: 600; }
+.present-return button { border: 0; background: none; color: var(--dg-muted); text-decoration: underline; cursor: pointer; }

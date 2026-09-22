@@ -5,6 +5,8 @@ const Reference = lazy(() => import("./reference/Reference"));
 const Framework = lazy(() => import("./framework/Framework"));
 const Workshop = lazy(() => import("./workshop/entry"));
 const GeneBuilder = lazy(() => import("./gene/entry"));
+const Presentation = lazy(() => import("./present/entry"));
+import { ReturnToPresentation } from "./present/ReturnToPresentation";
 const Build = lazy(() => import("./build/Build"));
 import { applyPageMetadata, publicPath } from "./metadata";
 import { Icon } from "./Icon";
@@ -30,8 +32,10 @@ export function Site() {
     }
   }, [location.pathname]);
   if (publicPath(location.pathname) === "/reference/forma/") return null;
+  if (/^\/present(?:\/|$)/.test(location.pathname)) return <Suspense fallback={<div role="status">Loading the presentation…</div>}><Presentation /></Suspense>;
   return (
     <div className="dg-site">
+      <ReturnToPresentation />
       <a className="dg-skip" href="#main">
         Skip to content
       </a>
