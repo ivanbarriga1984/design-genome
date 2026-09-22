@@ -90,8 +90,11 @@ test('seven-step authoring preserves edits, relationships, storage, exports, and
     assert.deepEqual(decode(dom.window.localStorage.getItem(storageKey)),{gene:beforeCreation,step:8});
     await act(async()=>t.mock.timers.tick(900));assert.match(document.querySelector('.gene-creation')!.textContent!,/Connecting the knowledge/);
     await act(async()=>t.mock.timers.tick(900));assert.match(document.querySelector('.gene-creation')!.textContent!,/Your first Gene is ready/);
-    await act(async()=>t.mock.timers.tick(799));assert.equal(document.querySelector('.gene-human'),null);
-    await act(async()=>t.mock.timers.tick(1));assert.ok(document.querySelector('.gene-human'));assert.equal(document.activeElement,document.querySelector('.gene-result h1'));assert.deepEqual(decode(dom.window.localStorage.getItem(storageKey))!.gene,beforeCreation);assert.match(document.querySelector('.gene-human')!.textContent!,/Uses Button/);assert.ok(!document.querySelector('.gene-human')!.textContent!.includes('Exception reviewer'));
+    await act(async()=>t.mock.timers.tick(449));assert.equal(document.querySelector('.gene-human'),null);
+    await act(async()=>t.mock.timers.tick(1));assert.ok(document.querySelector('.gene-human'));assert.ok(document.querySelector('.gene-creation'));assert.equal(document.querySelector('.gene-arrival')!.getAttribute('inert'),'');assert.notEqual(document.activeElement,document.querySelector('.gene-result h1'));
+    let resultScrolls=0;document.querySelector<HTMLElement>('.gene-result h1')!.scrollIntoView=()=>{resultScrolls++;};
+    await act(async()=>t.mock.timers.tick(749));assert.ok(document.querySelector('.gene-creation'));
+    await act(async()=>t.mock.timers.tick(1));assert.equal(resultScrolls,0);assert.equal(document.querySelector('.gene-creation'),null);assert.equal(document.querySelector('article')!.hasAttribute('inert'),false);assert.ok(document.querySelector('.gene-human'));assert.equal(document.activeElement,document.querySelector('.gene-result h1'));assert.deepEqual(decode(dom.window.localStorage.getItem(storageKey))!.gene,beforeCreation);assert.match(document.querySelector('.gene-human')!.textContent!,/Uses Button/);assert.ok(!document.querySelector('.gene-human')!.textContent!.includes('Exception reviewer'));
     assert.equal(document.querySelector('.gene-inventory')!.textContent,'1 decision1 intent1 owner1 relationship1 governance boundary3 consumers');await click('Structured view');assert.match(document.querySelector('.gene-artifact pre')!.textContent!,/"type": "uses"/);
     await click('Copy structured data');assert.match(document.querySelector('.gene-copy-status')!.textContent!,/copy/i);
     const originalCreate=URL.createObjectURL, originalClick=dom.window.HTMLAnchorElement.prototype.click;
@@ -126,10 +129,10 @@ test('creation moment cancels every pending timer when unmounted',async(t)=>{
   t.mock.timers.enable({apis:['setTimeout']});
   const dom=new JSDOM('<div id="root"></div>');
   Object.assign(globalThis,{window:dom.window,document:dom.window.document,HTMLElement:dom.window.HTMLElement,IS_REACT_ACT_ENVIRONMENT:true});
-  const {createRoot}=await import('react-dom/client');const root=createRoot(document.getElementById('root')!);let completions=0;
+  const {createRoot}=await import('react-dom/client');const root=createRoot(document.getElementById('root')!);let completions=0,reveals=0;
   try{
-    await act(async()=>root.render(<CreationMoment onComplete={()=>{completions++;}}/>));
+    await act(async()=>root.render(<CreationMoment onReveal={()=>{reveals++;}} onComplete={()=>{completions++;}}/>));
     await act(async()=>t.mock.timers.tick(900));assert.match(document.body.textContent!,/Connecting the knowledge/);
-    await act(async()=>root.render(null));await act(async()=>t.mock.timers.tick(5000));assert.equal(completions,0);assert.equal(document.querySelector('.gene-creation'),null);
+    await act(async()=>root.render(null));await act(async()=>t.mock.timers.tick(5000));assert.equal(completions,0);assert.equal(reveals,0);assert.equal(document.querySelector('.gene-creation'),null);
   }finally{await act(async()=>root.unmount());dom.window.close();}
 });

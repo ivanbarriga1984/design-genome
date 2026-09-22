@@ -107,3 +107,16 @@
   .gene-creation[data-phase="0"] .gene-creation-lines { opacity: 0; }
   .gene-creation-lines path { stroke-dasharray: none; }
 }
+
+/* The final structure holds until 2100ms; the result overlaps its last 300ms. */
+.gene-handoff { display: grid; }
+.gene-handoff > .gene-creation, .gene-handoff > .gene-arrival { grid-area: 1 / 1; align-self: start; min-width: 0; }
+.gene-handoff > .gene-creation { z-index: 1; pointer-events: none; animation: gene-depart 450ms 2100ms ease-in-out both; }
+.gene-handoff > .gene-arrival { animation: gene-arrive 500ms ease-in-out both; }
+@keyframes gene-depart { from { opacity: 1; } to { opacity: 0; } }
+@keyframes gene-arrive { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  /* Keep only the restrained opacity handoff; node movement remains disabled. */
+  .dg-site .gene-handoff > .gene-creation { animation: gene-depart 450ms 2100ms ease-in-out both !important; }
+  .dg-site .gene-handoff > .gene-arrival { animation: gene-arrive 500ms ease-in-out both !important; }
+}
