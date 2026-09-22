@@ -11,18 +11,18 @@ export function DeletePreview({ additionalEntry = false, trace = false, baseline
   const descriptionId = useId();
   const ready = !additionalEntry || name === project;
   return <div className="dg-forma-preview wk-preview">
-    <span className="wk-preview-brand">forma <span>SIMULATED PROJECT</span></span>
-    <form onSubmit={event => { event.preventDefault(); if (ready) setResult("Project deleted in this demo only. No real data was changed."); }}>
+    <span className="wk-preview-brand">forma <span>PROJECT</span></span>
+    <form onSubmit={event => { event.preventDefault(); if (ready) setResult("Project deleted."); }}>
       <Stack gap="spacing.6">
         <div><h3>Delete project</h3><p id={descriptionId}>{trace && <span className="wk-marker" aria-label="Decision 1">1</span>}{baseline ? <>Are you sure you want to delete “{project}”? This action cannot be undone.</> : <>Deleting “{project}” removes this project and its tasks. It cannot be recovered in this fictional scenario.</>}</p></div>
-        {additionalEntry && <Input label="Project name" value={name} onChange={event => { setName(event.target.value); setResult(""); }} helperText={`Enter ${project} exactly to enable deletion in this demo.`} required />}
+        {additionalEntry && <Input label="Project name" value={name} onChange={event => { setName(event.target.value); setResult(""); }} helperText={`Enter ${project} exactly to enable deletion.`} required />}
         {trace && <p className="wk-preview-trace"><span className="wk-marker">2</span> Action label <span className="wk-marker">3</span> Destructive treatment</p>}
         <Stack direction="horizontal" gap="spacing.3" wrap>
           <Button type="submit" variant="destructive" aria-describedby={descriptionId} disabled={!ready || !!result}>{baseline ? "Delete" : "Delete project"}</Button>
-          <Button variant="secondary" onClick={() => { setName(""); setResult("Deletion cancelled. The fictional project is unchanged."); }}>Cancel</Button>
-          {result && <Button variant="ghost" onClick={() => { setName(""); setResult(""); }}>Reset demo</Button>}
+          <Button variant="secondary" onClick={() => { setName(""); setResult("Deletion cancelled. The project is unchanged."); }}>Cancel</Button>
+          {result && <Button variant="ghost" onClick={() => { setName(""); setResult(""); }}>Reset preview</Button>}
         </Stack>
-        <p role="status" className="wk-feedback">{result || "Interactive demonstration. Nothing will be deleted."}</p>
+        <p role="status" className="wk-feedback">{result}</p>
       </Stack>
     </form>
   </div>;
@@ -59,10 +59,10 @@ export function CreatePreview({ baseline = false }: { baseline?: boolean }) {
   </Stack>;
   return <div className={`dg-forma-preview wk-preview wk-create ${baseline ? "wk-create-baseline" : ""}`}>
     {baseline && <div className="wk-workspace"><strong>forma</strong><span>Workspace / Projects</span></div>}
-    {baseline && success ? <Stack gap="spacing.6"><h3 tabIndex={-1} ref={successHeading}>Project created</h3><p>“{name.trim()}” is ready in this exercise. Nothing was saved.</p><div><Button variant="secondary" onClick={() => { setSuccess(false); setName(""); setUrl(""); setErrors({ name: "", url: "" }); }}>Create another project</Button></div></Stack> : <>
+    {baseline && success ? <Stack gap="spacing.6"><h3 tabIndex={-1} ref={successHeading}>Project created</h3><p>“{name.trim()}” is ready.</p><div><Button variant="secondary" onClick={() => { setSuccess(false); setName(""); setUrl(""); setErrors({ name: "", url: "" }); }}>Create another project</Button></div></Stack> : <>
       <div className="wk-preview-intro">{baseline && <span className="wk-preview-note">PROJECTS</span>}<h3>Create a project</h3><p>{baseline ? "Give your team a place to organize its work. Add a name and an optional project link to get started." : "Name your project and add a link if you have one."}</p></div>
       <form ref={form} noValidate onSubmit={event => { event.preventDefault(); validate(); }}>{baseline ? <Card>{fields}</Card> : fields}</form>
-      <p role="status" className="wk-feedback">{success ? `“${name.trim()}” was created in this exercise. Nothing was saved.` : errors.name || errors.url ? "Check the highlighted fields." : "Interactive example. Creation is simulated."}</p>
+      <p role="status" className="wk-feedback">{success ? `“${name.trim()}” was created.` : errors.name || errors.url ? "Check the highlighted fields." : ""}</p>
     </>}
   </div>;
 }

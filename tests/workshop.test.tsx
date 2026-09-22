@@ -103,13 +103,26 @@ test("three tasks progress independently, preserve exact intent, and retain cond
       assert.equal(url.getAttribute('aria-invalid'), 'true');
       await set(url, '');
       await act(async () => form.dispatchEvent(new dom.window.Event('submit', { bubbles: true, cancelable: true })));
-      assert.match(preview.textContent!, /Nothing was saved/);
+      assert.match(preview.textContent!, informed ? /was created/ : /is ready/);
       assert.equal(!!preview.querySelector('form'), informed);
       if (!informed) { assert.equal(document.activeElement, preview.querySelector('h3')); await click('Supply Design Genome'); }
     }
     assert.equal(container.querySelectorAll('.wk-traces > details').length, 3);
+    const summaries = container.querySelectorAll<HTMLDetailsElement>('.wk-breakdown details');
+    assert.equal(summaries.length, 3);
+    assert.ok([...summaries].every(item => !item.open));
+    assert.deepEqual([...summaries].map(item => item.querySelector('p')!.textContent), [scenarios.create.carried, scenarios.create.shared, scenarios.create.local]);
+    for (const item of summaries) {
+      await act(async () => item.querySelector('summary')!.click());
+      assert.equal(item.open, true);
+      await act(async () => item.querySelector('summary')!.click());
+      assert.equal(item.open, false);
+    }
+    assert.ok(!container.textContent!.includes('A visual difference alone'));
+
     await click('Explore the boundary'); await click('Reflect on the exercise');
     assert.match(container.textContent!, /The model is not the source/);
+    assert.match(container.textContent!, /It does not establish compliance/);
     await choose(1); assert.equal(container.querySelector('.wk-preview'), null);
     await click('Generate result'); assert.equal(container.querySelector('button[type="submit"]')!.textContent, 'Delete');
     await click('Supply Design Genome'); assert.ok(!container.querySelector('input'));
@@ -123,7 +136,7 @@ test("three tasks progress independently, preserve exact intent, and retain cond
     assert.ok(submit.disabled);
     await set(input, 'Wrong name'); assert.ok(submit.disabled);
     await set(input, 'Design operations'); assert.equal(submit.disabled, false);
-    await act(async () => submit.click()); assert.match(container.querySelector('[role="status"]')!.textContent!, /No real data/);
+    await act(async () => submit.click()); assert.match(container.querySelector('[role="status"]')!.textContent!, /Project deleted/);
     await click('Reflect on the exercise'); await click('Start again');
     await click('Generate result'); await click('Supply Design Genome'); await click('Generate with Genome'); await click('Make a review decision');
     assert.ok([...container.querySelectorAll<HTMLInputElement>('input[type="radio"]')].every(i => !i.checked));

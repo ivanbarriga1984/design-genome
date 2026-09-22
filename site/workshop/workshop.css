@@ -190,3 +190,16 @@
 .wk-chooser { scroll-margin-top: 105px; }
 .wk-stage-tools { display: flex; gap: 16px; flex-shrink: 0; }
 @media (max-width: 600px) { .wk-stage-tools { flex-direction: column; gap: 0; } .wk-stage-tools .wk-reset { margin-top: 0; } }
+
+/* Compact teaching summaries preserve the result and its source traces. */
+.wk-sandbox-note { color: var(--dg-muted); font-size: 12px; margin: -12px 0 24px; }
+.wk-breakdown { gap: 20px; padding: 16px 0; align-items: start; }
+.wk-breakdown details { min-width: 0; }
+.wk-breakdown summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 8px 0; cursor: pointer; font-size: 16px; font-weight: 500; list-style: none; }
+.wk-breakdown summary::-webkit-details-marker { display: none; }
+.wk-breakdown summary::after { content: '+'; color: var(--dg-purple); flex-shrink: 0; }
+.wk-breakdown details[open] summary::after { content: '−'; }
+.wk-breakdown details[open] summary { color: var(--dg-purple); }
+.wk-breakdown details p { padding: 8px 0 12px; }
+@media (max-width: 850px) { .wk-breakdown { gap: 0; } .wk-breakdown details + details { border-top: 1px solid var(--dg-line); } }
+.wk-preview .wk-feedback:empty { min-height: 0; margin-top: 0; }

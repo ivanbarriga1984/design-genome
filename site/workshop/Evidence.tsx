@@ -22,5 +22,5 @@ export function Traces({ scenario, context }: { scenario: ScenarioId; context: W
       <p><strong>{item.title}</strong> · {item.level ?? "Guidance"} · {item.status}</p><p>{trace.why}</p><p className="wk-source-summary">{item.summary}</p>
       <p className="wk-note">Owner: {item.owner}</p><a href={referenceLink(item.id)}>Inspect {item.title} →</a><a href={referenceLink(trace.related)}>Inspect supporting source →</a>
     </details>;
-  })}<p className="wk-note">Knowledge can inform a decision, confirm a reasonable choice, or leave the judgment to a person. A trace is not a compliance certificate.</p></div>;
+  })}<p className="wk-note">Knowledge can inform a decision, confirm a reasonable choice, or leave the judgment to a person.</p></div>;
 }
