@@ -45,6 +45,7 @@ test('keyboard beats, direct scenes, overview, calibration, help and fullscreen 
   const label=()=>document.querySelector('main')!.getAttribute('aria-label')!;
   try{
     await act(async()=>root.render(<MemoryRouter initialEntries={['/present/03']}><Presentation/></MemoryRouter>));
+    assert.deepEqual([...document.querySelectorAll('.pr-controls button')].map(b=>b.getAttribute('aria-label')),['Previous beat','Open scene overview','Next beat','Toggle fullscreen']);assert.equal(document.querySelector('.pr-beat'),null);
     assert.match(label(),/beat 1 of 2/);await key(' ');assert.match(label(),/beat 2 of 2/);await key('ArrowRight');assert.match(label(),/Scene 4/);await key('ArrowLeft');assert.match(label(),/Scene 3.*beat 2/);await key('ArrowRight',true);assert.match(label(),/Scene 4.*beat 1/);
     await key('o');assert.equal(document.querySelectorAll('.pr-index button').length,22);await act(async()=>document.querySelectorAll<HTMLButtonElement>('.pr-index button')[16].click());assert.match(label(),/Scene 17/);assert.equal(document.querySelector('dialog'),null);
     await key('c');assert.ok(document.querySelector('.pr-safe-boundary'));assert.match(document.querySelector('dialog')!.textContent!,/1600 × 900/);await key('Escape');assert.equal(document.querySelector('dialog'),null);

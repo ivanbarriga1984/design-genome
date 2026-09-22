@@ -39,7 +39,7 @@
 .pr-converge { font-size: 80px; color: var(--pr-accent); }.pr-creators strong { font-size: 48px; font-weight: 500; }
 .pr-button-scene { display: grid; grid-template-columns: 550px 1fr; align-items: center; gap: 60px; min-height: 330px; }
 .pr-button-object { display: flex; justify-content: center; align-items: center; height: 290px; border-block: 1px solid var(--pr-line); }
-.pr-forma-scale { transform: scale(2.2); }.pr-forma-scale button { pointer-events: none; }
+.pr-forma-scale { transform: scale(2.3); }.pr-forma-scale button { pointer-events: none; }
 .pr-questions { border-left: 1px solid var(--pr-line); padding-left: 36px; font-size: 27px; line-height: 1.5; }.pr-questions > div + div { margin-top: 12px; }
 .pr-drift { width: 1408px; height: 170px; margin-top: 32px; }.pr-drift path { fill: none; stroke: var(--pr-line); stroke-width: 2; }.pr-drift circle { fill: var(--pr-accent); }
 .pr-flow { display: flex; width: 100%; margin-block: 50px; }
@@ -74,7 +74,7 @@
 .pr-scene-19 { gap: 18px; }.pr-closing-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 36px; margin-top: 70px; font-size: 36px; }.pr-closing-steps span { border-top: 1px solid var(--pr-line); display: block; padding-top: 20px; }
 .pr-final .pr-display { font-size: 70px; }.pr-final .pr-statement { margin-top: 40px; color: var(--pr-accent); }.pr-final-links { display: flex; flex-wrap: wrap; gap: 16px 28px; font-size: 21px; margin-top: 32px; }
 .pr-controls { position: absolute; left: 96px; right: 96px; bottom: 63px; display: flex; align-items: center; gap: 24px; height: 42px; color: var(--pr-muted); font-size: 17px; }
-.pr-brand { font-size: 24px; font-weight: 600; letter-spacing: -.05em; }.pr-controls nav { margin-left: auto; display: flex; align-items: center; gap: 16px; }.pr-controls button { font: inherit; min-width: 38px; min-height: 40px; color: inherit; padding: 4px 8px; border: 0; border-radius: 4px; background: none; cursor: pointer; }.pr-controls button:disabled { opacity: .35; cursor: default; }.pr-beat { font-size: 15px; opacity: .8; }
+.pr-brand { font-size: 24px; font-weight: 600; letter-spacing: -.05em; }.pr-controls nav { margin-left: auto; display: flex; align-items: center; gap: 16px; }.pr-controls button { font: inherit; min-width: 38px; min-height: 40px; color: inherit; padding: 4px 8px; border: 0; border-radius: 4px; background: none; cursor: pointer; }.pr-controls button:disabled { opacity: .35; cursor: default; }
 .pr-stage :is(a,button):focus-visible,.pr-utility button:focus-visible { outline: 3px solid var(--pr-accent,var(--dg-purple)); outline-offset: 5px; }
 .pr-notice { position: absolute; bottom: 112px; left: 96px; right: 96px; background: var(--pr-surface); border: 1px solid var(--pr-line); padding: 14px 20px; font-size: 20px; }
 .pr-utility { position: fixed; inset: 0; margin: auto; width: calc(1600px * var(--pr-scale)); height: calc(900px * var(--pr-scale)); max-width: none; max-height: none; border: 0; padding: 0; overflow: hidden; background: #f7f7f9; color: #20202c; }
@@ -89,3 +89,5 @@
 .pr-adapter[data-phase=branches] .pr-adapter-branches > div::before { content: ''; position: absolute; left: -30px; top: 40px; width: 30px; height: 1px; background: var(--pr-line); }
 .pr-adapter[data-phase=direct] .pr-adapter-box, .pr-adapter[data-phase=direct] .pr-adapter-box + span { display: none; }
 .pr-adoption { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 32px; }
+
+.pr-adapter-branches small { font-size: 20px; font-weight: 500; }
