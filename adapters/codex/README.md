@@ -1,6 +1,6 @@
-# First Codex reference consumer
+# Codex reference consumer
 
-This is a local context-delivery experiment for the existing destructive-action pattern. It produces a task-scoped Markdown packet for Codex. It does not call an LLM, start a Codex task, implement deletion, modify Forma, or establish new design authority. It is not an adapter framework, service, MCP server or persistent agent configuration.
+This is a reusable local context formatter for explicitly selected Genome knowledge. The default CLI remains the existing destructive-action example and produces a task-scoped Markdown packet for Codex. It does not call an LLM, start a Codex task, implement deletion, modify Forma, or establish new design authority. It is not an adapter framework, service, MCP server or persistent agent configuration.
 
 ## Boundary and invocation
 
@@ -20,9 +20,9 @@ npm run genome:check
 npm run codex:context
 ```
 
-Only the first two commands read authored sources. `codex:context` reads **only** `generated/forma-genome.json` and imports the existing query implementation. It does not import compiler or Genome modules at runtime, inspect React/CSS, fetch documents, or follow source paths. Tests prove it runs with those three files alone. Missing or malformed inputs fail clearly and remove any previous output.
+Only the first two commands read authored sources. `codex:context` reads **only** `generated/forma-genome.json` and delegates through explicit selection to the existing query implementation. It does not import compiler or Genome modules at runtime, inspect React/CSS, fetch documents, or follow source paths. Tests prove delivery runs with the compiled JSON and four consumer modules alone (`context.ts`, `format.ts`, `select-context.ts`, and `query-genome.ts`); the pure formatter also runs with just a serialized selection envelope. Missing or malformed inputs fail clearly and remove any previous output.
 
-The output is `generated/codex-destructive-action.md`, ignored by Git. It is a generated consumer projection, not authority; do not edit it. Regenerate it after upstream changes. The command supports only the explicit `forma.patterns.destructive-action` seed. The fixed proposed request is:
+The output is `generated/codex-destructive-action.md`, ignored by Git. It is a generated consumer projection, not authority; do not edit it. Regenerate it after upstream changes. The compatibility command supports only the explicit `forma.patterns.destructive-action` seed. The fixed proposed request is:
 
 > Add a destructive action allowing a user to delete a project.
 
@@ -97,4 +97,43 @@ Tests cover deterministic bytes for identical compiled input/intent, direction-p
 
 The consumer checks the transport it needs, not comprehensive source correctness or authenticity. SHA-256 identifies the input and checks embedded-text consistency; it is not a signature. Only the upstream `genome:check` establishes freshness against current authority. The consumer cannot establish freshness while intentionally refusing to read that authority. Context files must be regenerated intentionally; no watcher or automatic attachment is installed.
 
-The first packet retains full selected contracts and foundation groups, so it is smaller than the complete artifact but not a tiny prompt. It makes no model-specific token-budget claim. The selection format is reference-consumer presentation, not a new authored governance schema. No missing governance decision blocks this milestone. Further intent routing, structured prose policies, automated exception applicability or vendor integrations would require separate work and appropriate decisions. Future consumers could use the same compiled/query boundary; no such adapters are implemented here.
+The first packet retains full selected contracts and foundation groups, so it is smaller than the complete artifact but not a tiny prompt. It makes no model-specific token-budget claim. The selection format is reference-consumer presentation, not a new authored governance schema. No missing governance decision blocks this milestone. Natural-language intent routing, structured prose policies, automated exception applicability and vendor integrations remain out of scope. Reusable formatting and explicit multi-root selection are available through the API below; no model execution is introduced.
+
+
+## Reusable selection and formatting API
+
+```ts
+import { resolveSelection } from "../../scripts/select-context.ts";
+import { formatCodexContext } from "./format.ts";
+
+const context = resolveSelection(compiledText, {
+  roots: [{ id: "forma.patterns.form", reason: "The caller requests project data entry." }],
+});
+const packet = formatCodexContext({
+  task: "Create a project form. Exercise facts: name is required; project URL is optional.",
+  context,
+});
+```
+
+The caller owns task/product facts and root selection. `select-context.ts` validates one compiled snapshot, calls the unchanged resolver per root, deduplicates results, and retains inclusion provenance. `format.ts` only translates that envelope for Codex. `context.ts` retains the deletion command, output path, compatibility exports, and atomic failure-safe delivery. The generic API returns text; callers explicitly choose any output location. No scenario adapters, automatic attachments, or natural-language routing are introduced.
+
+Selection contains `roots: { id, reason }[]`, optional `expectedCompiledSha256`, and optional `activations: { from, to, reason }[]`. Duplicate identical roots collapse; conflicting duplicate reasons/records fail. Results preserve caller selections separately from authored edges, contract/token dependencies and human activations. Root ordering does not affect output. The envelope includes selected excerpts and cited source hashes—not full source texts/catalogs. Packet provenance groups repeated root evidence for readability. Hashes identify exact compiled bytes, not authenticity or freshness; run `genome:check` upstream.
+
+- **Delete:** select `forma.patterns.destructive-action`; the Input association is visible but its contract is inactive.
+- **Create:** select `forma.patterns.form`. Do not automatically add Card or voice; the existing graph does not select them.
+- **Analytics:** there is no analytics pattern. Explicitly select `forma.components.card`, `forma.components.stack`, `forma.foundations.typography`, `forma.principles.clarity-before-density`, `forma.principles.hierarchy-communicates-intent`, `forma.content.voice`, `forma.content.action-labels`, `forma.rules.explicit-action-labels`, `forma.rules.one-primary-action-per-decision-context`, and `forma.rules.reuse-governed-components`, each with a caller reason. Co-selection creates no semantic edges or governed dashboard layout. Add Button only for an actual Button action; report navigation must retain link semantics, not invent a Button `href` API.
+
+For conditional entry, resolve a replacement from the same original `compiledText`, keeping the initial roots and passing:
+
+```ts
+{
+  expectedCompiledSha256: initialContext.compiledSha256,
+  activations: [{
+    from: "forma.patterns.destructive-action",
+    to: "forma.components.input",
+    reason: "Local human review determined that additional entry is warranted.",
+  }],
+}
+```
+
+Activation requires a nonempty decision reason, an authored `related-to` edge from the initial resolved selection, and the original snapshot hash. It supplies Input's full resolved context without changing the edge. Explicitly selecting Input as a root is also possible, but is recorded as caller selection, not invented human activation. The formatter reports each conditional target's actual active/inactive status. This is replacement delivery, not incremental synchronization; the caller must supply the replacement to Codex. The system records a stated review decision, not proof of approval. No workshop UI changes are part of this refactor.

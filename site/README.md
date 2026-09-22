@@ -81,3 +81,17 @@ Review `/build` at desktop and mobile widths, section anchors (including direct 
 `public/design-genome-social.png` is the single 1200 × 630 Open Graph/Twitter card asset, using locally available Manrope and the approved public copy and identity. The production image URL is `https://design-genome.com/design-genome-social.png`. No sitemap, content prerendering, or expanded SEO system is introduced. Verify directory-index resolution, the bare Forma redirect, production-domain metadata, and image delivery on the actual host before publishing.
 
 See [the project licensing boundary](../LICENSE.md): software is MIT; authored content, knowledge, original diagrams, and social artwork are CC BY 4.0, including content embedded in software files. Third-party licenses remain intact.
+
+## Three-scenario DDX workshop
+
+`/workshop` and `/workshop/` deliver a prepared, browser-only Intent → Intelligence → Inheritance exercise. Attendees independently choose Create a project, Delete a project, or Analytics summary. Each preserves its exact task through result → supply Genome → informed result → trace → judgment/boundary → reflection. Switching or restarting clears the scenario state. There is no model endpoint, backend, persistence, or real creation/deletion.
+
+`workshop/scenarios.ts` owns exercise copy and explicit analytics selection, not organizational authority. `Workshop.tsx` owns progression and focus; `previews.tsx` owns local preview interactions; `Evidence.tsx` presents source-backed traces and progressively disclosed evidence. `projection.ts` uses the approved compiler/resolver at build time. Form and Destructive Action follow real registry relationships; analytics uses the approved ten explicit roots through the reusable selection layer. No analytics pattern or synthetic relationship is added. Draft status, ownership, rules, contracts, conditional relationships, exceptions and source hashes are retained.
+
+Create uses the user's completed Astra Light pilot summary as its conceptual basis, not a byte-for-byte import of the pilot outputs. Both forms are competent, with visible labels, field feedback and first-invalid-field focus. Workspace framing versus restrained composition, dedicated versus inline success, and complete HTTP/HTTPS URL validation are implementation choices, not established Forma policy or causal experiment findings.
+
+Delete preserves the local human-review choice about additional entry. Input is separately resolved through the authored conditional edge and becomes active only after that choice. Prebundling its context avoids a runtime network dependency; it does not make Input mandatory. Exact-name matching is an exercise mechanism, not Forma-wide policy. Product consequences come from the shared task.
+
+Analytics uses the same four fictional values in both results, governed Card/Stack primitives and native report links. The report destination is an in-page boundary placeholder. Metric arrangement, ordering, reporting periods, thresholds and responsive composition are not provided by an analytics pattern. No period or threshold is invented as a product fact.
+
+Stage transitions focus the current heading; Change task returns to the selected chooser control. Source disclosures work with keyboard activation, and all preview actions stay local. These results teach knowledge inheritance and its limits, not AI performance improvement, deterministic generation or accessibility certification. Fonts and context arrive with the page; initial loading and refreshing still require network access.

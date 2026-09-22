@@ -70,14 +70,14 @@ test('consumer uses embedded guidance, never a matching on-disk source', () => {
   assert.ok(renderContext(JSON.stringify(a)).includes('Embedded compiled test: make the user'));
 });
 
-test('standalone consumer needs only compiled JSON and query code, and removes stale output on failure', async () => {
+test('standalone consumer needs only compiled JSON and consumer modules, and removes stale output on failure', async () => {
   const dir=await mkdtemp(join(tmpdir(),'forma-codex-'));
   const input=pathToFileURL(join(dir,'generated/forma-genome.json'));
   const output=pathToFileURL(join(dir,'generated/codex-destructive-action.md'));
   try {
     await mkdir(join(dir,'adapters/codex'),{recursive:true}); await mkdir(join(dir,'scripts')); await mkdir(join(dir,'generated'));
     await writeFile(join(dir,'package.json'),'{"type":"module"}');
-    for (const file of ['adapters/codex/context.ts','scripts/query-genome.ts']) await writeFile(join(dir,file),await readFile(new URL('../'+file,import.meta.url)));
+    for (const file of ['adapters/codex/context.ts','adapters/codex/format.ts','scripts/select-context.ts','scripts/query-genome.ts']) await writeFile(join(dir,file),await readFile(new URL('../'+file,import.meta.url)));
     await writeFile(input,text);
     execFileSync(process.execPath,[join(dir,'adapters/codex/context.ts')],{encoding:'utf8'});
     assert.equal(await readFile(output,'utf8'),context);
