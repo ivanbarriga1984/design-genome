@@ -12,7 +12,7 @@ export function pageMetadata(path: string, title?: string) {
   return {
     title: title ?? (normalized === "/" ? "Design Genome — For humans and the AI era" :
       normalized === "/reference/forma/" ? "Forma component showcase" :
-      `${normalized === "/workshop" ? "Workshop" : normalized === "/framework" ? "Framework" : normalized === "/build" ? "Build your own" : normalized === "/reference" || normalized.startsWith("/reference/") ? "Reference" : "Page not found"} — Design Genome`),
+      `${normalized === "/build/gene" ? "Build your first Gene" : normalized === "/workshop" ? "Workshop" : normalized === "/framework" ? "Framework" : normalized === "/build" ? "Build your own" : normalized === "/reference" || normalized.startsWith("/reference/") ? "Reference" : "Page not found"} — Design Genome`),
     description,
     url: `${productionOrigin}${normalized === "/" ? "/" : normalized}`,
   };

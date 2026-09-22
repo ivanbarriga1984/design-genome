@@ -96,3 +96,8 @@
 .build-chapter:focus-visible .build-chapter-heading { outline: var(--dg-focus) solid var(--dg-purple); outline-offset: 8px; }
 
 .build-contents a[aria-current="location"] { color: var(--dg-purple); font-weight: 600; }
+
+.build-gene-entry { display: flex; align-items: center; justify-content: space-between; gap: 32px; border-block: 1px solid var(--dg-line); padding-block: 28px; margin-bottom: 48px; }
+.build-gene-entry p { max-width: 650px; font-size: 16px; color: var(--dg-muted); margin-top: 8px; }
+.build-gene-entry a { flex-shrink: 0; color: var(--dg-purple); }
+@media (max-width: 800px) { .build-gene-entry { flex-direction: column; align-items: start; gap: 20px; } }

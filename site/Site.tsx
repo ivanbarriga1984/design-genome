@@ -4,6 +4,7 @@ import { Home } from "./Home";
 const Reference = lazy(() => import("./reference/Reference"));
 const Framework = lazy(() => import("./framework/Framework"));
 const Workshop = lazy(() => import("./workshop/entry"));
+const GeneBuilder = lazy(() => import("./gene/entry"));
 const Build = lazy(() => import("./build/Build"));
 import { applyPageMetadata, publicPath } from "./metadata";
 import { Icon } from "./Icon";
@@ -93,6 +94,7 @@ export function Site() {
           />
           <Route path="/reference/*" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the reference…</div>}><Reference /></Suspense>} />
           <Route path="/workshop" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the workshop…</div>}><Workshop /></Suspense>} />
+          <Route path="/build/gene" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the Gene builder…</div>}><GeneBuilder /></Suspense>} />
           <Route path="/build" element={<Suspense fallback={<div className="dg-entry dg-wrap" role="status">Loading the guide…</div>}><Build /></Suspense>} />
           <Route
             path="*"

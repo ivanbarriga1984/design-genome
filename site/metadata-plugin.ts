@@ -60,7 +60,7 @@ export function publicMetadata(): Plugin {
     async closeBundle() {
       if (!building) return;
       const data = await referenceProjection();
-      const pages = new Map<string, string | undefined>([["/workshop", undefined], ["/framework", undefined], ["/build", undefined], ["/reference", "Overview — Forma Reference — Design Genome"], ["/reference/machine-context", "Machine context — Forma Reference — Design Genome"]]);
+      const pages = new Map<string, string | undefined>([["/build/gene", undefined], ["/workshop", undefined], ["/framework", undefined], ["/build", undefined], ["/reference", "Overview — Forma Reference — Design Genome"], ["/reference/machine-context", "Machine context — Forma Reference — Design Genome"]]);
       for (const entity of data.entities) {
         pages.set(`/reference/${entity.domain}`, `${entity.domain[0].toUpperCase()}${entity.domain.slice(1)} — Forma Reference — Design Genome`);
         pages.set(`/reference/${entity.domain}/${entity.slug}`, `${entity.title} — Forma Reference — Design Genome`);
