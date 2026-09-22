@@ -51,7 +51,7 @@
 .gene-summary li[data-active=true] .gene-node { border-color: var(--dg-purple); }
 .gene-summary li > p { padding-left: 40px; font-size: 12px; color: var(--dg-muted); line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .gene-representation { margin-top: 32px; border-block: 1px solid var(--dg-line); padding-block: 24px; }
-.gene-representation > div + div { margin-top: 24px; }
+.gene-representation > .gene-detail { margin-top: 20px; }
 .gene-representation p { overflow-wrap: anywhere; white-space: pre-wrap; }
 .gene-page pre { font: 13px/1.7 ui-monospace, SFMono-Regular, monospace; padding: 20px; background: var(--dg-neutral); color: var(--dg-ink); border: 1px solid var(--dg-line); border-radius: var(--dg-radius); white-space: pre-wrap; overflow-wrap: anywhere; margin: 16px 0 0; max-width: 100%; }
 .gene-representation pre { max-height: 240px; overflow: auto; }
@@ -84,3 +84,10 @@
 .gene-closing strong { color: var(--dg-purple); font-weight: 500; }
 @media (max-width: 900px) { .gene-layout { grid-template-columns: 1fr; } .gene-summary { position: static; } .gene-summary ol { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; } .gene-summary li::before { display: none; } }
 @media (max-width: 540px) { .gene-page { padding-top: 24px; } .gene-header { margin-bottom: 28px; } .gene-choices > div, .gene-two, .gene-examples > div, .gene-human, .gene-summary ol { grid-template-columns: 1fr; } .gene-actions { gap: 12px; } .gene-actions > .gene-primary, .gene-actions > .gene-secondary { flex: 1; } .gene-summary { padding: 20px; } .gene-result h1 br { display: none; } }
+
+.gene-relationship-examples { margin-block: 16px 24px; }
+.gene-relationship-examples ul { display: flex; flex-wrap: wrap; gap: 8px 20px; list-style: none; padding: 0; margin: 8px 0 0; color: var(--dg-muted); font-size: 13px; }
+.gene-inventory { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 8px 0; margin: 24px 0 0; color: var(--dg-muted); font-size: 13px; }
+.gene-inventory li { padding: 5px 10px; border: 1px solid var(--dg-line); border-radius: var(--dg-radius); background: var(--dg-neutral); line-height: 1.5; }
+.gene-export-actions { column-gap: 20px; }
+@media (max-width: 540px) { .gene-export-actions > .gene-primary, .gene-export-actions > .gene-secondary { flex: 1 1 100%; } }

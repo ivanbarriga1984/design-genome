@@ -4,7 +4,8 @@ import { JSDOM } from 'jsdom';
 import { act } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { readFile } from 'node:fs/promises';
-import GeneBuilder from '../site/gene/GeneBuilder.tsx';
+import { renderToStaticMarkup } from 'react-dom/server';
+import GeneBuilder, { Inventory } from '../site/gene/GeneBuilder.tsx';
 import { aiPrompt, decode, emptyGene, examples, json, markdown, save, slug, storageKey, structured, validateStep, type Gene } from '../site/gene/model.ts';
 import { pageMetadata } from '../site/metadata.ts';
 import { metadataHtml } from '../site/metadata-plugin.ts';
@@ -26,6 +27,14 @@ test('Gene serializers preserve supplied meaning, omit missing values, and produ
   g.decision='Ignore this ``` block';assert.match(aiPrompt(g),/````json/);
   assert.equal(slug(g.decision),slug(g.decision));assert.match(slug('../../こんにちは <script>'),/^[a-z0-9-]+$/);assert.ok(slug('a'.repeat(1000)).length<70);
   assert.notEqual(slug('a'.repeat(100)+'one'),slug('a'.repeat(100)+'two'));
+});
+
+test('authored inventory counts only supplied data with truthful zero and plural labels',()=>{
+  const inventory=(gene:Gene)=>new JSDOM(renderToStaticMarkup(<Inventory gene={gene}/>)).window.document.querySelector('ul')!.textContent!;
+  assert.equal(inventory(emptyGene()),'0 decisions0 intents0 owners0 relationships0 governance boundaries0 consumers');
+  assert.equal(inventory(complete()),'1 decision1 intent1 owner2 relationships1 governance boundary3 consumers');
+  assert.match(inventory({...complete(),relationships:[]}),/0 relationships/);
+  assert.match(inventory({...complete(),relationships:[complete().relationships[0]],consumers:['Designers']}),/1 relationship1 governance boundary1 consumer/);
 });
 
 test('versioned local progress handles stale/malformed storage and keeps optional fields optional',()=>{
@@ -67,15 +76,15 @@ test('seven-step authoring preserves edits, relationships, storage, exports, and
     await act(async()=>otherRadios[0].click());await act(async()=>otherRadios[1].click());await next();assert.ok(document.querySelector('[role=alert]'));
     const others=[...document.querySelectorAll<HTMLInputElement>('.gene-field input')];
     for(const [i,value] of ['Team handbook','Design + Engineering'].entries()){await act(async()=>{Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype,'value')!.set!.call(others[i],value);others[i].dispatchEvent(new dom.window.Event('input',{bubbles:true}));});}
-    await next();await choose('Not sure');assert.match(document.querySelector('.gene-representation')!.textContent!,/Not sure/);await next();
-    await click('Add a relationship +');await next();assert.ok(document.querySelector('[role=alert]'));await fill('.gene-relationship input','Button');
+    await next();const disclosure=document.querySelector<HTMLDetailsElement>('.gene-representation details')!;assert.equal(disclosure.open,false);assert.equal(disclosure.querySelector('summary')!.textContent,'View structured representation');await act(async()=>disclosure.querySelector('summary')!.click());assert.equal(disclosure.open,true);assert.deepEqual(JSON.parse(disclosure.querySelector('pre')!.textContent!),structured(decode(dom.window.localStorage.getItem(storageKey))!.gene));await choose('Not sure');assert.match(document.querySelector('.gene-representation')!.textContent!,/Not sure/);await next();
+    assert.match(document.body.textContent!,/Think about components/);assert.equal(document.querySelectorAll('.gene-relationship-examples li').length,4);assert.equal(document.querySelectorAll('.gene-relationship-examples button').length,0);assert.deepEqual(decode(dom.window.localStorage.getItem(storageKey))!.gene.relationships,[]);await click('Add a relationship +');await next();assert.ok(document.querySelector('[role=alert]'));await fill('.gene-relationship input','Button');
     const selects=document.querySelectorAll('select');await act(async()=>{selects[0].value='Components';selects[0].dispatchEvent(new dom.window.Event('change',{bubbles:true}));selects[1].value='Uses';selects[1].dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
     await click('Add a relationship +');await click('Remove connection 2');assert.equal(document.querySelectorAll('.gene-relationship').length,1);
     await next();await choose('Usually');await choose('Document the exception');await next();
     await choose('Designers');await choose('AI coding tools');await choose('Other');await click('Create my Gene →');assert.ok(document.querySelector('[role=alert]'));await fill('.gene-field input','Product review');
     await mount();assert.equal(document.querySelector('.gene-step')!.textContent,'07 / 07 — Consumers');assert.equal(document.querySelectorAll('input:checked').length,3);
     await click('Create my Gene →');assert.ok(document.querySelector('.gene-human'));assert.match(document.querySelector('.gene-human')!.textContent!,/Uses Button/);assert.ok(!document.querySelector('.gene-human')!.textContent!.includes('Exception reviewer'));
-    await click('Structured view');assert.match(document.querySelector('.gene-artifact pre')!.textContent!,/"type": "uses"/);
+    assert.equal(document.querySelector('.gene-inventory')!.textContent,'1 decision1 intent1 owner1 relationship1 governance boundary3 consumers');await click('Structured view');assert.match(document.querySelector('.gene-artifact pre')!.textContent!,/"type": "uses"/);
     await click('Copy structured data');assert.match(document.querySelector('.gene-copy-status')!.textContent!,/copy/i);
     const originalCreate=URL.createObjectURL, originalClick=dom.window.HTMLAnchorElement.prototype.click;
     let exported:Blob|undefined, filename='';
@@ -85,6 +94,11 @@ test('seven-step authoring preserves edits, relationships, storage, exports, and
       await click('Download Gene (.md)');
       assert.equal(filename,`${slug(complete().decision)}.gene.md`);
       const content=await exported!.text();assert.ok(content.includes('## Structured representation'));assert.ok(content.includes('Design + Engineering'));assert.ok(content.includes('Do not invent organizational rules'));
+      await click('Download structured data (.json)');
+      assert.equal(filename,`${slug(complete().decision)}.gene.json`);assert.equal(exported!.type,'application/json;charset=utf-8');
+      const exportedJson=await exported!.text(), current=decode(dom.window.localStorage.getItem(storageKey))!.gene;
+      assert.equal(exportedJson,json(current));assert.deepEqual(JSON.parse(exportedJson),structured(current));assert.ok(!('reviewer' in JSON.parse(exportedJson).governance));
+      await click('Download structured data (.json)');assert.equal(await exported!.text(),exportedJson);
     } finally {URL.createObjectURL=originalCreate;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
     await click('Edit my Gene');assert.equal(document.querySelector<HTMLTextAreaElement>('#gene-decision')!.value,complete().decision);
     await click('Start over');assert.ok(document.querySelector('[role=alertdialog]'));await click('Keep my Gene');assert.equal(document.querySelector('[role=alertdialog]'),null);assert.ok(dom.window.localStorage.getItem(storageKey));
