@@ -99,7 +99,7 @@ export function Home() {
             The Design Genome
           </div>
           <h1>
-            Build design systems for humans <span>and the AI era.</span>
+            Build design systems for humans <span>and the AI era 2026.</span>
           </h1>
           <p>
             Design systems help people create consistently.
